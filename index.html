@@ -1,0 +1,6164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MBUGUA // A System Called Love</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #05030a;
+    color: #eee8ff;
+    font-family: "Courier New", monospace;
+    overflow-x: hidden;
+}
+
+section {
+    min-height: 100vh;
+    padding: 100px 8%;
+    position: relative;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   BOOT SCREEN
+===================================================== */
+
+#boot {
+    position: fixed;
+    inset: 0;
+    background: #030205;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    transition: opacity 1s;
+}
+
+.terminal {
+    width: min(800px, 100%);
+    color: #c084fc;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 9px;
+    height: 17px;
+    background: #a855f7;
+    animation: blink .8s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.progress {
+    width: 100%;
+    height: 5px;
+    border: 1px solid #5b2b78;
+    margin: 25px 0;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #a855f7;
+    box-shadow: 0 0 20px #a855f7;
+    transition: width .4s;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 18px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 1000;
+
+    background: rgba(5,3,10,.78);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(168,85,247,.15);
+}
+
+.logo {
+    color: #c084fc;
+    font-weight: bold;
+}
+
+nav a {
+    color: #8f859e;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 11px;
+}
+
+nav a:hover {
+    color: #d8b4fe;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(126,34,206,.25),
+            transparent 50%
+        );
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.system-label,
+.section-label {
+    color: #a855f7;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+
+    font-size: clamp(65px, 11vw, 140px);
+
+    line-height: .9;
+    margin-bottom: 35px;
+}
+
+.hero h1 span {
+    color: #b76cff;
+}
+
+
+/* =====================================================
+   MBUGUA TEDDY BEAR
+===================================================== */
+
+.hero h1 .teddy {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 0.55em;
+
+    animation:
+        teddyBounce 2s ease-in-out infinite;
+
+    transform-origin: bottom center;
+
+    filter:
+        drop-shadow(0 0 8px rgba(192,132,252,.25));
+}
+
+@keyframes teddyBounce {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    20% {
+        transform:
+            translateY(-7px)
+            rotate(-7deg);
+    }
+
+    40% {
+        transform:
+            translateY(0)
+            rotate(5deg);
+    }
+
+    60% {
+        transform:
+            translateY(-4px)
+            rotate(-4deg);
+    }
+
+    80% {
+        transform:
+            translateY(0)
+            rotate(2deg);
+    }
+}
+
+@media (min-width: 701px) {
+
+    .hero h1 .teddy {
+        animation:
+            teddyBounce 2s ease-in-out infinite,
+            teddyGlow 3s ease-in-out infinite;
+    }
+
+}
+
+@keyframes teddyGlow {
+
+    0%,
+    100% {
+        filter:
+            drop-shadow(
+                0 0 5px
+                rgba(192,132,252,.15)
+            );
+    }
+
+    50% {
+        filter:
+            drop-shadow(
+                0 0 14px
+                rgba(192,132,252,.45)
+            );
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero h1 .teddy {
+        animation: none;
+    }
+
+}
+
+
+.hero p {
+    color: #968ba1;
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.9;
+}
+
+.enter-btn {
+    margin-top: 40px;
+
+    padding: 16px 30px;
+
+    color: #d8b4fe;
+    background: transparent;
+
+    border: 1px solid #a855f7;
+
+    transition: .3s;
+}
+
+.enter-btn:hover {
+    background: #a855f7;
+    color: white;
+
+    box-shadow:
+        0 0 35px rgba(168,85,247,.5);
+}
+
+
+/* =====================================================
+   TITLES
+===================================================== */
+
+h2 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+
+    font-size: clamp(40px, 6vw, 75px);
+
+    margin-bottom: 50px;
+}
+
+
+/* =====================================================
+   SYSTEM ARCHITECTURE
+===================================================== */
+
+.architecture {
+    background: #090610;
+}
+
+.architecture-grid {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.node {
+    padding: 30px;
+
+    background: rgba(17,9,25,.8);
+
+    border: 1px solid #34203f;
+
+    transition: .4s;
+}
+
+.node:hover {
+    transform: translateY(-8px);
+
+    border-color: #a855f7;
+
+    box-shadow:
+        0 15px 50px rgba(168,85,247,.12);
+}
+
+.node h3 {
+    color: #d8b4fe;
+    margin-bottom: 15px;
+}
+
+.node p {
+    color: #8f859e;
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+.core {
+    grid-column: span 3;
+    text-align: center;
+    border-color: #8b3fc7;
+}
+
+.core h3 {
+    font-size: 30px;
+}
+
+
+/* =====================================================
+   CODE
+===================================================== */
+
+.code-section {
+    background: #030205;
+}
+
+.code-window {
+    max-width: 900px;
+    margin: auto;
+
+    background: #09070d;
+
+    border: 1px solid #30223d;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 90px rgba(0,0,0,.6);
+}
+
+.code-top {
+    padding: 13px 18px;
+
+    color: #6f6478;
+
+    border-bottom: 1px solid #30223d;
+
+    font-size: 11px;
+}
+
+.code {
+    padding: 30px;
+
+    line-height: 2;
+
+    overflow-x: auto;
+
+    color: #d8cbe3;
+}
+
+.keyword {
+    color: #c084fc;
+}
+
+.string {
+    color: #e9a8ff;
+}
+
+.comment {
+    color: #62586c;
+}
+
+
+/* =====================================================
+   HUMAN SPECIFICATIONS
+===================================================== */
+
+.specs {
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(126,34,206,.15),
+            transparent 35%
+        ),
+        #06040a;
+}
+
+.spec-intro {
+    color: #95899f;
+    line-height: 1.9;
+    margin-bottom: 50px;
+}
+
+.spec-grid {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.spec-item {
+    min-height: 170px;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background: rgba(13,9,19,.8);
+
+    border: 1px solid #302039;
+
+    transition: .4s ease;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.spec-item::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 3px;
+    height: 0;
+
+    background: #a855f7;
+
+    transition: .4s ease;
+}
+
+.spec-item:hover {
+    transform: translateY(-7px);
+
+    border-color: #8f42bd;
+
+    box-shadow:
+        0 20px 50px rgba(168,85,247,.12);
+}
+
+.spec-item:hover::before {
+    height: 100%;
+}
+
+.spec-icon {
+    font-size: 30px;
+
+    margin-bottom: 18px;
+}
+
+.spec-label {
+    color: #796982;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+.spec-item strong {
+    color: #d8c4e5;
+
+    font-family: Georgia, serif;
+
+    font-size: 20px;
+
+    font-weight: normal;
+}
+
+.heart-spec {
+    border-color: #65358a;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(126,34,206,.15),
+            rgba(13,9,19,.9)
+        );
+}
+
+.heart-spec strong {
+    color: #c084fc;
+}
+
+.spec-footer {
+    max-width: 700px;
+
+    margin: 70px auto 0;
+
+    padding: 30px;
+
+    border: 1px solid #302039;
+
+    background: #08060c;
+
+    color: #74677d;
+
+    font-size: 11px;
+
+    line-height: 2;
+}
+
+.terminal-line {
+    opacity: .9;
+}
+
+.final-analysis {
+    color: #a855f7;
+
+    letter-spacing: 1px;
+}
+
+.final-analysis span {
+    color: #e0b3ff;
+}
+
+
+/* =====================================================
+   CHESS
+===================================================== */
+
+.chess-section {
+    text-align: center;
+
+    background:
+        repeating-conic-gradient(
+            #110c16 0% 25%,
+            #08050b 0% 50%
+        ) 50% / 80px 80px;
+}
+
+.chess-board {
+    width: min(480px, 90vw);
+
+    aspect-ratio: 1;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(8, 1fr);
+
+    border: 4px solid #704092;
+
+    box-shadow:
+        0 0 60px rgba(168,85,247,.2);
+}
+
+.square {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(20px,5vw,45px);
+
+    user-select: none;
+}
+
+.chess-stage {
+    position: relative;
+    width: min(480px, 90vw);
+    margin: 0 auto;
+}
+
+.chess-stage .chess-board {
+    width: 100%;
+}
+
+.square {
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s ease;
+}
+
+.square.selected {
+    outline: 3px solid #df98fa;
+    box-shadow:
+        0 0 12px #9055ff,
+        inset 0 0 15px rgba(223,152,250,0.35);
+    position: relative;
+    z-index: 2;
+}
+
+.square.target {
+    box-shadow:
+        inset 0 0 0 4px rgba(1,255,244,0.65);
+}
+
+.light {
+    background: #c6add2;
+    color: #21142a;
+}
+
+.dark {
+    background: #51375e;
+    color: white;
+}
+
+.chess-message {
+    margin-top: 30px;
+    color: #9d91a8;
+    min-height: 30px;
+}
+
+.chess-status {
+    margin-top: 20px;
+    color: #958a9f;
+    text-align: center;
+    min-height: 24px;
+}
+
+.checkmate-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(144,85,255,0.35),
+            rgba(5,2,15,0.96) 70%
+        );
+
+    backdrop-filter: blur(6px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: scale(0.85);
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.5s ease,
+        visibility 0.4s ease;
+}
+
+.checkmate-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+.checkmate-title {
+    font-size: clamp(38px, 10vw, 70px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: #df98fa;
+
+    text-shadow:
+        0 0 10px #df98fa,
+        0 0 30px #9055ff,
+        0 0 60px #9055ff;
+
+    animation:
+        checkmateDrop
+        0.8s
+        cubic-bezier(.17,.89,.32,1.28);
+}
+
+.checkmate-line {
+    margin-top: 15px;
+    color: #01FFF4;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.birthday-note {
+    margin-top: 25px;
+    line-height: 1.8;
+    color: white;
+    font-size: 16px;
+}
+
+.birthday-note strong {
+    color: #df98fa;
+    font-size: 20px;
+}
+
+.checkmate-button {
+    margin-top: 25px;
+    padding: 12px 25px;
+
+    border: 1px solid #df98fa;
+    background: transparent;
+    color: #df98fa;
+
+    font-family: inherit;
+    letter-spacing: 2px;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.checkmate-button:hover {
+    background: #df98fa;
+    color: #100719;
+    box-shadow: 0 0 25px #df98fa;
+}
+
+@keyframes checkmateDrop {
+
+    0% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);
+    }
+
+    70% {
+        transform: translateY(10px) scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.heart-particle {
+    position: absolute;
+    color: #df98fa;
+    font-size: 18px;
+    animation: heartFloat 2.5s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes heartFloat {
+
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.5);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-180px) scale(1.4);
+    }
+}
+
+
+/* =====================================================
+   MUSIC — VINTAGE CINEMA / RECORD ROOM
+===================================================== */
+
+.music-section {
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(110,54,72,.18),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(91,43,120,.12),
+            transparent 45%
+        ),
+        linear-gradient(
+            180deg,
+            #080607,
+            #11090c 45%,
+            #050306
+        );
+
+    overflow: hidden;
+}
+
+.music-section::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,.09) 1px,
+            transparent 1px
+        );
+
+    background-size: 5px 5px;
+
+    opacity: .025;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   VINTAGE PLAYER FRAME
+===================================================== */
+
+.vintage-player {
+
+    width: min(1050px, 100%);
+
+    margin: auto;
+
+    padding: 50px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #211619,
+            #0b0809 50%,
+            #171012
+        );
+
+    border: 1px solid #624438;
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.8),
+        inset 0 0 80px rgba(0,0,0,.45);
+
+    overflow: hidden;
+}
+
+.vintage-player::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    border: 1px solid rgba(201,165,106,.22);
+
+    pointer-events: none;
+}
+
+.vintage-player::after {
+
+    content:
+        "D_SYSTEM // PRIVATE RECORD ARCHIVE";
+
+    position: absolute;
+
+    top: 23px;
+    right: 35px;
+
+    color: #715849;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+}
+
+
+/* =====================================================
+   VINTAGE HEADER
+===================================================== */
+
+.vintage-header {
+
+    text-align: center;
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-bottom: 40px;
+}
+
+.vintage-era {
+
+    color: #a88a67;
+
+    font-size: 9px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 12px;
+}
+
+.vintage-title {
+
+    font-family: Georgia, serif;
+
+    color: #ead8ba;
+
+    font-size: clamp(30px, 5vw, 54px);
+
+    font-weight: normal;
+
+    font-style: italic;
+}
+
+.vintage-rule {
+
+    width: 110px;
+
+    height: 1px;
+
+    margin: 18px auto;
+
+    background: #886449;
+}
+
+.vintage-subtitle {
+
+    color: #79665d;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   RECORD ROOM
+===================================================== */
+
+.record-room {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 55px;
+
+    align-items: center;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =====================================================
+   VINYL RECORD
+===================================================== */
+
+.record-stage {
+
+    min-height: 450px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+}
+
+.record-shadow {
+
+    position: absolute;
+
+    width: 360px;
+    height: 55px;
+
+    bottom: 45px;
+
+    border-radius: 50%;
+
+    background: rgba(0,0,0,.7);
+
+    filter: blur(18px);
+}
+
+.vinyl {
+
+    width: min(365px, 70vw);
+
+    aspect-ratio: 1;
+
+    position: relative;
+
+    border-radius: 50%;
+
+    background:
+        repeating-radial-gradient(
+            circle,
+            #080808 0px,
+            #080808 2px,
+            #151515 3px,
+            #080808 5px
+        );
+
+    border: 5px solid #171717;
+
+    box-shadow:
+        0 25px 45px rgba(0,0,0,.8),
+        0 0 0 1px #4c403c,
+        inset 0 0 35px rgba(255,255,255,.05);
+
+    transform: rotate(0deg);
+
+    transition:
+        transform .8s ease,
+        filter .5s ease;
+}
+
+.vinyl.playing {
+
+    animation:
+        vinylSpin
+        7s
+        linear
+        infinite;
+}
+
+@keyframes vinylSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vinyl::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 4%;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            125deg,
+            transparent 34%,
+            rgba(255,255,255,.13) 48%,
+            transparent 57%
+        );
+
+    pointer-events: none;
+}
+
+.vinyl-label {
+
+    position: absolute;
+
+    width: 31%;
+
+    aspect-ratio: 1;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #4b1b2c,
+            #651f39 48%,
+            #251018
+        );
+
+    border: 3px solid #a08058;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 15px;
+}
+
+.vinyl-label-content {
+
+    color: #e4d1ac;
+
+    font-family: Georgia, serif;
+
+    font-size: clamp(9px, 1.5vw, 14px);
+
+    line-height: 1.4;
+}
+
+.vinyl-label-content small {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #aa8b66;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+}
+
+.vinyl-hole {
+
+    position: absolute;
+
+    width: 11px;
+    height: 11px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: #080607;
+
+    border: 1px solid #a08058;
+
+    z-index: 4;
+}
+
+
+/* =====================================================
+   RECORD PLAYER NEEDLE
+===================================================== */
+
+.needle-arm {
+
+    position: absolute;
+
+    width: 145px;
+
+    height: 8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8e765f,
+            #d0b184
+        );
+
+    top: 72px;
+
+    right: 20px;
+
+    transform-origin: right center;
+
+    transform: rotate(-18deg);
+
+    border-radius: 10px;
+
+    z-index: 5;
+
+    transition: transform .8s ease;
+}
+
+.needle-arm::before {
+
+    content: "";
+
+    position: absolute;
+
+    right: -5px;
+
+    top: -5px;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #b39369;
+
+    border: 2px solid #594634;
+}
+
+.needle-arm::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: -4px;
+
+    top: 2px;
+
+    width: 12px;
+
+    height: 4px;
+
+    background: #d2b889;
+
+    transform: rotate(20deg);
+}
+
+.vintage-player.playing .needle-arm {
+
+    transform: rotate(-3deg);
+}
+
+
+/* =====================================================
+   SONG INFORMATION
+===================================================== */
+
+.record-info {
+
+    padding: 15px;
+
+    text-align: center;
+}
+
+.now-playing {
+
+    color: #a88963;
+
+    font-size: 9px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 20px;
+}
+
+.record-number {
+
+    color: #6e574b;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+}
+
+.vintage-song-title {
+
+    font-family: Georgia, serif;
+
+    font-size: clamp(35px, 5vw, 62px);
+
+    line-height: 1;
+
+    font-weight: normal;
+
+    font-style: italic;
+
+    color: #ead9c0;
+
+    text-shadow:
+        0 3px 20px rgba(0,0,0,.7);
+}
+
+.vintage-artist {
+
+    margin-top: 18px;
+
+    color: #b18d72;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+}
+
+.song-story {
+
+    max-width: 430px;
+
+    margin: 28px auto 0;
+
+    color: #84736c;
+
+    font-size: 11px;
+
+    line-height: 2;
+}
+
+
+/* =====================================================
+   DECORATIVE QUOTE
+===================================================== */
+
+.vintage-quote {
+
+    margin: 35px auto;
+
+    max-width: 420px;
+
+    padding: 20px 25px;
+
+    border-top: 1px solid #443029;
+
+    border-bottom: 1px solid #443029;
+
+    color: #9b8277;
+
+    font-family: Georgia, serif;
+
+    font-style: italic;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   MUSIC CONTROLS
+===================================================== */
+
+.vintage-controls {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+.vintage-control {
+
+    min-width: 55px;
+
+    height: 44px;
+
+    padding: 0 16px;
+
+    color: #b99b73;
+
+    background: transparent;
+
+    border: 1px solid #594034;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    transition: .3s;
+}
+
+.vintage-control:hover {
+
+    color: #f1dfbd;
+
+    border-color: #a88962;
+
+    background: rgba(168,137,98,.08);
+
+    box-shadow:
+        0 0 25px rgba(168,137,98,.12);
+}
+
+.vintage-control.play {
+
+    width: 65px;
+
+    border-color: #a88962;
+
+    color: #e8d4b1;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   NEXT RECORD
+===================================================== */
+
+.next-record {
+
+    margin-top: 45px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.next-label {
+
+    color: #66544c;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
+}
+
+.next-record-btn {
+
+    position: relative;
+
+    padding: 16px 35px;
+
+    color: #d4b88c;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(91,50,60,.3),
+            rgba(30,15,19,.6)
+        );
+
+    border: 1px solid #806047;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    transition:
+        .4s ease;
+
+    overflow: hidden;
+}
+
+.next-record-btn::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.08),
+            transparent
+        );
+
+    transform: translateX(-100%);
+
+    transition: .6s;
+}
+
+.next-record-btn:hover::before {
+
+    transform: translateX(100%);
+}
+
+.next-record-btn:hover {
+
+    color: white;
+
+    border-color: #c1a16e;
+
+    box-shadow:
+        0 0 35px rgba(193,161,110,.15);
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   HIDDEN NEXT SONG TEASER
+===================================================== */
+
+.next-teaser {
+
+    margin-top: 12px;
+
+    color: #4f413b;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   HIDDEN SOUNDCLOUD AUDIO ENGINE
+===================================================== */
+
+.soundcloud-player-wrapper {
+
+    position: fixed;
+
+    width: 1px;
+    height: 1px;
+
+    left: -9999px;
+    top: -9999px;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+#soundcloudPlayer {
+
+    width: 1px;
+    height: 1px;
+
+    border: none;
+
+    opacity: 0;
+}
+
+
+/* =====================================================
+   TRACK REVEAL ANIMATION
+===================================================== */
+
+.record-info.changing {
+
+    animation:
+        recordReveal
+        .8s
+        ease;
+}
+
+@keyframes recordReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   FINAL RECORD
+===================================================== */
+
+.vintage-player.final-record {
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(95,26,49,.25),
+            transparent 55%
+        ),
+        linear-gradient(
+            145deg,
+            #251318,
+            #080507
+        );
+
+    border-color: #8b5b69;
+}
+
+.vintage-player.final-record .vintage-song-title {
+
+    color: #e6b9d1;
+
+    text-shadow:
+        0 0 25px rgba(223,152,250,.2);
+}
+
+.vintage-player.final-record .vinyl-label {
+
+    background:
+        radial-gradient(
+            circle,
+            #6a203f,
+            #3b1024
+        );
+
+    border-color: #d29ab0;
+}
+
+
+/* =====================================================
+   AUDIO NOTE
+===================================================== */
+
+.music-audio-note {
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #574842;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   CHEESE
+===================================================== */
+
+.cheese-section {
+    text-align: center;
+
+    background: #0b0805;
+}
+
+.cheese {
+    font-size: 90px;
+
+    margin: 30px;
+
+    animation: float 2s infinite ease-in-out;
+
+    cursor: pointer;
+}
+
+@keyframes float {
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+.alert {
+    max-width: 650px;
+
+    margin: auto;
+
+    padding: 35px;
+
+    background: #110d08;
+
+    border: 1px solid #79552b;
+
+    color: #d7c5a5;
+
+    line-height: 2;
+}
+
+.alert strong {
+    color: #f1c27d;
+}
+
+
+/* =====================================================
+   LIFESTYLE
+===================================================== */
+
+.lifestyle {
+    background: #090610;
+}
+
+.lifestyle-grid {
+    max-width: 1000px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(2,1fr);
+
+    gap: 20px;
+}
+
+.lifestyle-card {
+    padding: 35px;
+
+    background: #0d0913;
+
+    border: 1px solid #34213f;
+
+    transition: .4s;
+}
+
+.lifestyle-card:hover {
+    transform: translateY(-7px);
+
+    border-color: #8f42bd;
+}
+
+.icon {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.lifestyle-card h3 {
+    color: #d8b4fe;
+    margin-bottom: 12px;
+}
+
+.lifestyle-card p {
+    color: #93889e;
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   MEMORY DATABASE
+===================================================== */
+
+.memories {
+    background: #050309;
+}
+
+.memory-box {
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 35px;
+
+    background: #08060c;
+
+    border: 1px solid #39204e;
+}
+
+.query {
+    color: #a855f7;
+
+    line-height: 2;
+
+    margin-bottom: 35px;
+
+    font-size: 13px;
+}
+
+.memory-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 25px;
+}
+
+.memory-card {
+    overflow: hidden;
+
+    background: #0c0910;
+
+    border: 1px solid #34203f;
+
+    transition: .5s;
+}
+
+.memory-card:hover {
+    transform: translateY(-10px);
+
+    border-color: #a855f7;
+
+    box-shadow:
+        0 20px 60px rgba(168,85,247,.18);
+}
+
+.memory-number {
+    padding: 13px 15px;
+
+    color: #80678e;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    border-bottom: 1px solid #24172c;
+}
+
+.memory-card img {
+    width: 100%;
+
+    height: 350px;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: .5s;
+
+    filter: saturate(.85);
+}
+
+.memory-card:hover img {
+    transform: scale(1.04);
+
+    filter: saturate(1);
+}
+
+.memory-info {
+    padding: 25px;
+}
+
+.memory-status {
+    color: #a855f7;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+.memory-info h3 {
+    color: #e9ddf5;
+
+    font-family: Georgia, serif;
+
+    font-size: 25px;
+
+    font-weight: normal;
+
+    margin-bottom: 12px;
+}
+
+.memory-info p {
+    color: #8f859e;
+
+    line-height: 1.7;
+
+    font-size: 13px;
+}
+
+.database-complete {
+    text-align: center;
+
+    margin-top: 60px;
+
+    color: #776b82;
+
+    line-height: 2;
+
+    font-size: 12px;
+}
+
+.database-complete .infinite {
+    color: #a855f7;
+
+    font-family: Georgia, serif;
+
+    font-size: 65px;
+
+    margin: 15px;
+}
+
+.database-line {
+    color: #39204e;
+}
+
+
+/* =====================================================
+   LOVE LETTER
+===================================================== */
+
+.love {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(126,34,206,.25),
+            transparent 55%
+        );
+}
+
+.letter {
+    max-width: 800px;
+}
+
+.letter p {
+    font-family: Georgia, serif;
+
+    font-size: 21px;
+
+    line-height: 2;
+
+    color: #c8bed0;
+}
+
+.signature {
+    margin-top: 45px;
+
+    font-family: Georgia, serif;
+
+    font-size: 27px;
+
+    color: #d8b4fe;
+}
+
+
+/* =====================================================
+   FINAL SYSTEM
+===================================================== */
+
+.final {
+    min-height: 70vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background: #020104;
+}
+
+.heart {
+    color: #b76cff;
+
+    font-size: 75px;
+
+    margin-bottom: 25px;
+
+    animation: heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat {
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+.status {
+    color: #95899f;
+
+    font-size: 13px;
+
+    line-height: 2.3;
+}
+
+.status span {
+    color: #c084fc;
+}
+
+footer {
+    text-align: center;
+
+    padding: 25px;
+
+    background: #020104;
+
+    color: #4d4455;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   SECRET MESSAGE
+===================================================== */
+
+.secret-message {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    background: rgba(3,1,6,.96);
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+.secret-content {
+    max-width: 650px;
+}
+
+.secret-content h2 {
+    color: #c084fc;
+
+    margin-bottom: 25px;
+}
+
+.secret-content p {
+    font-family: Georgia, serif;
+
+    color: #d7ccdf;
+
+    font-size: 21px;
+
+    line-height: 1.9;
+}
+
+.close-secret {
+
+    margin-top: 35px;
+
+    padding: 12px 25px;
+
+    color: #c084fc;
+
+    background: transparent;
+
+    border: 1px solid #a855f7;
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+.particle {
+
+    position: fixed;
+
+    width: 3px;
+    height: 3px;
+
+    background: #a855f7;
+
+    border-radius: 50%;
+
+    opacity: .35;
+
+    pointer-events: none;
+
+    animation: particleFloat 10s linear infinite;
+}
+
+@keyframes particleFloat {
+
+    from {
+        transform: translateY(100vh);
+    }
+
+    to {
+        transform: translateY(-10vh);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px) {
+
+    nav {
+        padding: 15px;
+    }
+
+    nav div:last-child {
+        display: none;
+    }
+
+    section {
+        padding: 80px 6%;
+    }
+
+    .architecture-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .core {
+        grid-column: span 1;
+    }
+
+    .spec-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .spec-item {
+        min-height: 145px;
+    }
+
+    .lifestyle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-card img {
+        height: 400px;
+    }
+
+    .hero h1 {
+        font-size: 65px;
+    }
+
+    .hero h1 .teddy {
+        font-size: 0.5em;
+        margin-left: 5px;
+    }
+
+    .letter p {
+        font-size: 18px;
+    }
+
+    .vintage-player {
+        padding: 35px 20px;
+    }
+
+    .vintage-player::after {
+        display: none;
+    }
+
+    .record-room {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .record-stage {
+        min-height: 360px;
+    }
+
+    .vinyl {
+        width: min(310px, 75vw);
+    }
+
+    .needle-arm {
+        width: 110px;
+        right: 0;
+        top: 60px;
+    }
+
+    .vintage-song-title {
+        font-size: 38px;
+    }
+
+    .vintage-controls {
+        gap: 8px;
+    }
+
+    .vintage-control {
+        min-width: 48px;
+        padding: 0 10px;
+    }
+
+    .chess-board {
+        width: 90vw;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     BOOT
+===================================================== -->
+
+<div id="boot">
+
+    <div class="terminal">
+
+        <div id="terminalText"></div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progressBar">
+            </div>
+
+        </div>
+
+        <div>
+
+            <span id="bootStatus">
+                INITIALIZING...
+            </span>
+
+            <span class="cursor"></span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+        D_SYSTEM // v∞
+    </div>
+
+    <div>
+
+        <a href="#architecture">SYSTEM</a>
+        <a href="#code">CODE</a>
+        <a href="#specs">SPECS</a>
+        <a href="#chess">CHESS</a>
+        <a href="#music">MUSIC</a>
+        <a href="#memories">MEMORIES</a>
+        <a href="#love">LOVE</a>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="system-label">
+            PERSONAL SYSTEM // BIRTHDAY PROTOCOL
+        </div>
+
+        <h1>
+            Mbugua<span class="teddy">🧸</span><span></span>
+        </h1>
+
+        <p>
+            In the vastness of a universe that could have carried us past each other a thousand times, somehow, we collided. Two wandering souls, finding each other in the middle of everything and leaving behind a story the universe itself might remember.
+        </p>
+
+        <button
+            class="enter-btn"
+            onclick="
+                document
+                .getElementById('architecture')
+                .scrollIntoView({
+                    behavior: 'smooth'
+                })
+            ">
+
+            INITIALIZE BIRTHDAY PROTOCOL →
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ARCHITECTURE
+===================================================== -->
+
+<section
+    class="architecture"
+    id="architecture">
+
+    <div class="section-label">
+        01 // SYSTEM ARCHITECTURE
+    </div>
+
+    <h2>
+        The man behind the system.
+    </h2>
+
+    <p class="architecture-intro">
+        Every system has its own language.
+        <br>
+        <span>Here's what mine has to say about you.</span>
+    </p>
+
+    <div class="architecture-grid">
+
+        <!-- CORE SYSTEM -->
+
+        <div class="node core love-node">
+
+            <div class="love-icon" tabindex="0" role="button"
+                 aria-label="Reveal core system love message">
+                <span class="icon-face">💜</span>
+                <span class="icon-code">.-.. --- ...- .</span>
+            </div>
+
+            <h3>CORE SYSTEM</h3>
+
+            <p class="node-default">
+                Age: 27<br>
+                Status: Exceptionally loved<br>
+                Uptime: ∞
+            </p>
+
+            <p class="node-message">
+                <span class="typing-text"
+                      data-text="if (you.exist) { myHeart.choose(you); } // Always you.">
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- ENGINEER -->
+
+        <div class="node love-node">
+
+            <div class="love-icon" tabindex="0" role="button"
+                 aria-label="Reveal engineer love message">
+                <span class="icon-face">👨🏾‍💻</span>
+                <span class="icon-code">.-.. --- ...- . / -.-- --- ..-</span>
+            </div>
+
+            <h3>👨🏾‍💻 ENGINEER</h3>
+
+            <p class="node-default">
+                Systems thinking.<br>
+                Problem solving.<br>
+                Go.<br>
+                TypeScript.<br>
+                Building things that actually work.
+            </p>
+
+            <p class="node-message">
+                <span class="typing-text"
+                      data-text="// You understand systems. Yet somehow, you still manage to leave me speechless.">
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- THE ROMANTIC -->
+
+        <div class="node love-node">
+
+            <div class="love-icon" tabindex="0" role="button"
+                 aria-label="Reveal romantic love message">
+                <span class="icon-face">❤️</span>
+                <span class="icon-code">.. / .- -.. --- .-. . / -.-- --- ..-</span>
+            </div>
+
+            <h3>❤️ THE ROMANTIC</h3>
+
+            <p class="node-default">
+                Finds meaning in little things.<br>
+                Romanticizes life.<br>
+                Has a soft heart hidden<br>
+                behind an engineer's brain.
+            </p>
+
+            <p class="node-message">
+                <span class="typing-text"
+                      data-text="const beautifulThings = [sunsets, music, littleMoments, you]; // You make ordinary life feel magical.">
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- THE PLAYER -->
+
+        <div class="node love-node">
+
+            <div class="love-icon" tabindex="0" role="button"
+                 aria-label="Reveal chess love message">
+                <span class="icon-face">♟️</span>
+                <span class="icon-code">-.-. .... . -.-. -.- -- .- - .</span>
+            </div>
+
+            <h3>♟ THE PLAYER</h3>
+
+            <p class="node-default">
+                Chess.<br>
+                Strategy.<br>
+                Patience.<br>
+                Thinking several moves ahead.
+            </p>
+
+            <p class="node-message">
+                <span class="typing-text"
+                      data-text="game.on(); heart.locked = true; // You can plan every move, but my heart chose you on its own.">
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- MUSIC ENGINE -->
+
+        <div class="node love-node">
+
+            <div class="love-icon" tabindex="0" role="button"
+                 aria-label="Reveal music love message">
+                <span class="icon-face">🎵</span>
+                <span class="icon-code">.--. .-.. .- -.-- / --- ..- .-. / ... --- -. --.</span>
+            </div>
+
+            <h3>🎵 MUSIC ENGINE</h3>
+
+            <p class="node-default">
+                Joji.<br>
+                Country.<br>
+                Rock.<br>
+                Songs that make ordinary moments<br>
+                feel cinematic.
+            </p>
+
+            <p class="node-message">
+                <span class="typing-text"
+                      data-text="while (myHeart.beats) { ourSong.play(); } // Every love song makes a little more sense because of you.">
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- STYLE MODULE -->
+
+        <div class="node love-node">
+
+            <div class="love-icon" tabindex="0" role="button"
+                 aria-label="Reveal style love message">
+                <span class="icon-face">👔</span>
+                <span class="icon-code">-. --- / --- -. . / .-.. .. -.- . / -.-- --- ..-</span>
+            </div>
+
+            <h3>👔 STYLE MODULE</h3>
+
+            <p class="node-default">
+                Purple.<br>
+                Fashion.<br>
+                Good taste.<br>
+                Excellent hair.
+            </p>
+
+            <p class="node-message">
+                <span class="typing-text"
+                      data-text="const myType = 'you'; // The outfits, the afro, the whole man. Have you seen yourself?">
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- SOFT CORE -->
+
+        <div class="node love-node">
+
+            <div class="love-icon" tabindex="0" role="button"
+                 aria-label="Reveal soft heart love message">
+                <span class="icon-face">🫶🏾</span>
+                <span class="icon-code">-.-- --- ..- / .- .-. . / .-.. --- ...- . -..</span>
+            </div>
+
+            <h3>💜 SOFT CORE</h3>
+
+            <p class="node-default">
+                Sweet.<br>
+                Thoughtful.<br>
+                Romantic.<br>
+                The kind of person worth keeping.
+            </p>
+
+            <p class="node-message">
+                <span class="typing-text"
+                      data-text="if (life.getsHeavy) { I.hopeYouFeelSafeWithMe(); } // You have held my heart gently. I hope I do the same for yours.">
+                </span>
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="architecture-footer">
+        <span class="terminal-prompt">&gt;</span>
+        SYSTEM OUTPUT:
+        <span class="footer-love">I LOVE THIS MAN. 🥹💜</span>
+        <br>
+        <span class="footer-comment">
+            // No errors detected. Just a heart that keeps choosing you.
+        </span>
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ARCHITECTURE LOVE INTERACTIONS
+===================================================== -->
+
+<style>
+.architecture-intro {
+    text-align: center;
+    margin: 18px auto 35px;
+    line-height: 1.9;
+    color: #c084fc;
+}
+
+.architecture-intro span {
+    color: #8f859e;
+    font-size: .9em;
+}
+
+.love-node {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.love-node:hover,
+.love-node:focus-within,
+.love-node.revealed {
+    border-color: #a855f7;
+    box-shadow: 0 0 22px rgba(168,85,247,.14);
+}
+
+.love-icon {
+    position: relative;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(192,132,252,.4);
+    border-radius: 50%;
+    background: #08060c;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all .35s ease;
+}
+
+.icon-face {
+    font-size: 36px;
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+.icon-code {
+    position: absolute;
+    inset: 0;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #01fff4;
+    font-family: monospace;
+    font-size: 10px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    opacity: 0;
+    transform: scale(.8);
+    transition: all .3s ease;
+}
+
+.love-node:hover .love-icon,
+.love-node:focus-within .love-icon,
+.love-node.revealed .love-icon {
+    width: 100%;
+    max-width: 230px;
+    border-radius: 10px;
+    border-color: #01fff4;
+}
+
+.love-node:hover .icon-face,
+.love-node:focus-within .icon-face,
+.love-node.revealed .icon-face {
+    opacity: 0;
+    transform: scale(.5);
+}
+
+.love-node:hover .icon-code,
+.love-node:focus-within .icon-code,
+.love-node.revealed .icon-code {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.node-message {
+    display: none;
+    margin-top: 16px;
+    padding: 14px;
+    border: 1px solid rgba(1,255,244,.2);
+    background: rgba(5,3,10,.85);
+    color: #01fff4;
+    font-family: monospace;
+    font-size: 11px;
+    line-height: 1.9;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.love-node:hover .node-message,
+.love-node:focus-within .node-message,
+.love-node.revealed .node-message {
+    display: block;
+}
+
+.typing-text::after {
+    content: "▋";
+    color: #c084fc;
+    animation: loveCursor .8s steps(2, start) infinite;
+}
+
+@keyframes loveCursor {
+    to { visibility: hidden; }
+}
+
+.architecture-footer {
+    margin: 45px auto 0;
+    padding: 22px;
+    border: 1px solid rgba(168,85,247,.25);
+    background: rgba(8,6,12,.8);
+    color: #8f859e;
+    font: 12px/2 monospace;
+    text-align: center;
+}
+
+.terminal-prompt {
+    color: #01fff4;
+}
+
+.footer-love {
+    color: #d8b4fe;
+    font-weight: bold;
+}
+
+.footer-comment {
+    color: #65576e;
+    font-size: 10px;
+}
+
+@media (max-width: 700px) {
+    .love-icon {
+        width: 72px;
+        height: 72px;
+    }
+
+    .architecture-footer {
+        padding: 16px 10px;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .typing-text::after {
+        animation: none;
+    }
+
+    .love-icon,
+    .icon-face,
+    .icon-code,
+    .love-node {
+        transition: none;
+    }
+}
+</style>
+
+<script>
+(() => {
+    document.querySelectorAll(".love-node").forEach(node => {
+        const icon = node.querySelector(".love-icon");
+        const output = node.querySelector(".typing-text");
+
+        if (!icon || !output) return;
+
+        let timer = null;
+        let typed = false;
+
+        function reveal() {
+            node.classList.add("revealed");
+
+            if (typed) return;
+            typed = true;
+
+            const message = output.dataset.text || "";
+            let i = 0;
+
+            output.textContent = "";
+
+            timer = setInterval(() => {
+                output.textContent += message.charAt(i++);
+                if (i >= message.length) clearInterval(timer);
+            }, 25);
+        }
+
+        function toggle() {
+            if (node.classList.contains("revealed")) {
+                node.classList.remove("revealed");
+            } else {
+                reveal();
+            }
+        }
+
+        icon.addEventListener("click", toggle);
+
+        icon.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggle();
+            }
+        });
+    });
+})();
+</script>
+
+
+<!-- =====================================================
+     CODE
+===================================================== -->
+
+<section
+    class="code-section"
+    id="code">
+
+    <div class="section-label">
+        02 // SOURCE CODE
+    </div>
+
+    <h2>
+        Written differently.
+    </h2>
+
+    <div class="code-window">
+
+        <div class="code-top">
+            birthday.go — D_SYSTEM
+        </div>
+
+        <pre class="code"><span class="keyword">type</span> D <span class="keyword">struct</span> {
+
+    Heart
+        <span class="string">"soft"</span>
+
+    Intelligence
+        <span class="string">"dangerous"</span>
+
+    Romanticism
+        <span class="string">"infinite"</span>
+
+    FavoriteColor
+        <span class="string">"purple"</span>
+
+    FavoriteFood
+        <span class="string">"burger"</span>
+
+    FavoriteDessert
+        <span class="string">"cheesecake"</span>
+
+    FavoriteGame
+        <span class="string">"chess"</span>
+
+    Hair
+        <span class="string">"afro"</span>
+
+    CheeseDependency
+        <span class="keyword">true</span>
+}
+
+
+<span class="keyword">func</span> BirthdayMessage(d D) <span class="keyword">string</span> {
+
+    <span class="comment">// No algorithm can adequately
+    // describe this man.</span>
+
+    <span class="keyword">return</span>
+
+    <span class="string">"You are deeply,
+     ridiculously,
+     beautifully loved."</span>
+}
+
+
+<span class="comment">// BUILD STATUS: SUCCESS
+// TESTS PASSED: ALL
+//
+// EXCEPT ONE:
+//
+// My heart still hasn't figured out
+// how to stop choosing you.</span></pre>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HUMAN SPECIFICATIONS // CHARACTER UNLOCK
+===================================================== -->
+
+<section class="specs" id="specs">
+
+    <div class="section-label">
+        03 // UNAUTHORIZED CHARACTER FILE
+    </div>
+
+    <h2>
+        So... this is my problem.
+    </h2>
+
+    <div class="spec-intro">
+        <p>
+            I was going to write a normal report about you.
+            <br>
+            Unfortunately, the subject has become
+            <span class="spec-highlight">a personal weakness.</span>
+        </p>
+        <div class="spec-stamp">CONFIDENTIAL // DO NOT LET HIM GET COCKY</div>
+    </div>
+
+    <div class="spec-game-status">
+        <span class="spec-live-dot"></span>
+        CHARACTER ANALYSIS IN PROGRESS
+        <span class="spec-file-id">FILE: HIM.exe</span>
+    </div>
+
+    <div class="spec-grid">
+
+        <button class="spec-item" type="button"
+                data-reveal="Somehow, debugging other people's problems is a job. Debugging my feelings about you? Apparently, not your department.">
+            <span class="spec-icon">🖥️</span>
+            <span class="spec-label">UNLOCKED SKILL</span>
+            <strong>Fixes Things</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="Go and TypeScript by day. Making me stare at my screen smiling at absolutely nothing by... also day.">
+            <span class="spec-icon">⌨️</span>
+            <span class="spec-label">DUAL-CORE PROCESSOR</span>
+            <strong>Code & Chaos</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="Can think several moves ahead on a chessboard. Still somehow gets involved with a girl who has approximately seventeen tabs open in her brain.">
+            <span class="spec-icon">♟️</span>
+            <span class="spec-label">TACTICAL ADVANTAGE</span>
+            <strong>Suspiciously Strategic</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="Joji when it's complicated. Country when it's deep. Rock when it's loud. Sir, is there a playlist for explaining your feelings or must I keep investigating?">
+            <span class="spec-icon">🎧</span>
+            <span class="spec-label">EMOTIONAL SOUNDTRACK</span>
+            <strong>Genre: Complicated</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="Burger. Milkshake. Cheese. Cheesecake. At this point, I am not dating a man. I am dating a very handsome food review channel.">
+            <span class="spec-icon">🍔</span>
+            <span class="spec-label">RESOURCE MANAGEMENT</span>
+            <strong>Will Accept Snacks</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="Purple is the aesthetic. The afro is the signature. The fashion is the presentation. And somehow, I am the one left malfunctioning.">
+            <span class="spec-icon">💜</span>
+            <span class="spec-label">VISUAL EFFECTS</span>
+            <strong>Unnecessarily Attractive</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="Has the ability to make ordinary moments feel like scenes from a film I would happily watch on repeat. Highly suspicious behaviour.">
+            <span class="spec-icon">🎞️</span>
+            <span class="spec-label">PASSIVE ABILITY</span>
+            <strong>Makes Life Cinematic</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="This file was supposed to be objective. It is now biased, emotionally compromised, and absolutely refusing to cooperate with the investigation.">
+            <span class="spec-icon">🧸</span>
+            <span class="spec-label">SYSTEM VULNERABILITY</span>
+            <strong>Soft Spot Detected</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item" type="button"
+                data-reveal="Warning: subject may cause random smiling, unnecessary daydreaming, replaying conversations, and checking the phone for no legitimate technical reason.">
+            <span class="spec-icon">⚠️</span>
+            <span class="spec-label">KNOWN SIDE EFFECTS</span>
+            <strong>Girlfriend.exe Crashing</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+        <button class="spec-item heart-spec" type="button"
+                data-reveal="No replacement parts available. No substitute model approved. No interest in testing alternatives. The original has already ruined the market for me.">
+            <span class="spec-icon">♥</span>
+            <span class="spec-label">REPLACEMENT POLICY</span>
+            <strong>Absolutely None</strong>
+            <span class="spec-hint">[ inspect file ]</span>
+        </button>
+
+    </div>
+
+    <div class="spec-console">
+        <div class="spec-console-head">
+            <span>LOVE_DIAGNOSTICS.sh</span>
+            <span class="spec-console-dots">● ● ●</span>
+        </div>
+
+        <div class="spec-console-body" id="specConsoleOutput">
+            <p><span class="spec-prompt">kendi@heart:~$</span> run full_scan --subject=him</p>
+            <p class="spec-muted">Loading available evidence...</p>
+            <p><span class="spec-ok">[OK]</span> Handsome: confirmed</p>
+            <p><span class="spec-ok">[OK]</span> Memorable: inconveniently</p>
+            <p><span class="spec-ok">[OK]</span> Living rent-free: permanently</p>
+            <p><span class="spec-warn">[!!]</span> Researcher objectivity: compromised</p>
+            <p><span class="spec-warn">[!!]</span> Subject's fault: impossible to prove</p>
+            <p class="spec-final-line">
+                FINAL VERDICT:
+                <strong>WOULD GET DISTRACTED BY HIM AGAIN.</strong>
+            </p>
+        </div>
+
+        <button class="spec-run-button" id="specRunScan" type="button">
+            ↻ RUN THE DIAGNOSTIC AGAIN
+        </button>
+    </div>
+
+    <div class="spec-modal" id="specModal" aria-hidden="true">
+        <div class="spec-modal-box" role="dialog"
+             aria-modal="true" aria-labelledby="specModalTitle">
+            <div class="spec-modal-top">
+                <span>FILE CONTENTS // RESTRICTED</span>
+                <button type="button" id="specModalClose"
+                        aria-label="Close file">×</button>
+            </div>
+            <div class="spec-modal-icon" id="specModalIcon">💜</div>
+            <div class="spec-modal-label" id="specModalLabel">
+                CLASSIFIED DETAIL
+            </div>
+            <h3 id="specModalTitle">Interesting discovery.</h3>
+            <p id="specModalMessage"></p>
+            <div class="spec-modal-foot">END OF FILE // STILL FAVOURITE</div>
+            <button type="button" class="spec-modal-close-bottom"
+                    id="specModalDone">I KNEW THAT ALREADY ♥</button>
+        </div>
+    </div>
+
+</section>
+
+<style>
+/* =====================================================
+   HUMAN SPECIFICATIONS // INTERACTIVE CHARACTER FILE
+===================================================== */
+
+.specs {
+    position: relative;
+}
+
+.spec-highlight {
+    color: #d8a4ff;
+    text-shadow: 0 0 16px #a855f755;
+}
+
+.spec-stamp {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 7px 11px;
+    border: 1px dashed #c084fc77;
+    color: #c084fc;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    transform: rotate(-2deg);
+}
+
+.spec-game-status {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 30px 0 18px;
+    color: #c084fc;
+    font: 10px/1.5 monospace;
+    letter-spacing: 1.2px;
+}
+
+.spec-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #a855f7;
+    box-shadow: 0 0 12px #a855f7;
+    animation: specPulse 1.5s infinite;
+}
+
+.spec-file-id {
+    margin-left: auto;
+    color: #8f82a4;
+}
+
+@keyframes specPulse {
+    50% { opacity: .3; }
+}
+
+.spec-grid {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(175px, 1fr) );
+    gap: 13px;
+}
+
+.spec-item {
+    position: relative;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 9px;
+    padding: 20px;
+    overflow: hidden;
+    text-align: left;
+    color: #f5edff;
+    font: inherit;
+    background:
+        radial-gradient(circle at 100% 0%, #a855f718, transparent 55%),
+        #100b19;
+    border: 1px solid #8b5bb52c;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .25s ease, border-color .25s ease,
+                box-shadow .25s ease, background .25s ease;
+}
+
+.spec-item::after {
+    content: "OPEN FILE ↗";
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    color: #a78abf;
+    font: 8px monospace;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: .2s ease;
+}
+
+.spec-item:hover,
+.spec-item:focus-visible {
+    transform: translateY(-5px) rotate(-.5deg);
+    border-color: #c084fcaa;
+    box-shadow: 0 10px 35px #7e22ce20;
+    outline: none;
+}
+
+.spec-item:hover::after,
+.spec-item:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.spec-icon {
+    font-size: 27px;
+    filter: drop-shadow(0 0 9px #a855f733);
+}
+
+.spec-label {
+    color: #a78abf;
+    font: 9px monospace;
+    letter-spacing: 1.5px;
+}
+
+.spec-item strong {
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.spec-hint {
+    margin-top: 2px;
+    color: #c084fc;
+    font: 9px monospace;
+    opacity: .75;
+}
+
+.heart-spec {
+    border-color: #c084fc55;
+    background:
+        radial-gradient(circle at 100% 0%, #d946ef20, transparent 60%),
+        #140b1d;
+}
+
+.heart-spec .spec-icon {
+    color: #d8a4ff;
+    animation: specHeart 1.8s ease-in-out infinite;
+}
+
+@keyframes specHeart {
+    50% { transform: scale(1.14); }
+}
+
+.spec-console {
+    margin-top: 28px;
+    overflow: hidden;
+    border: 1px solid #8b5bb544;
+    border-radius: 12px;
+    background: #08060d;
+    box-shadow: 0 15px 45px #00000022;
+}
+
+.spec-console-head,
+.spec-modal-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 13px 16px;
+    color: #bca6d4;
+    background: #170e22;
+    border-bottom: 1px solid #8b5bb533;
+    font: 10px monospace;
+    letter-spacing: 1px;
+}
+
+.spec-console-dots {
+    color: #c084fc;
+    font-size: 9px;
+    letter-spacing: 4px;
+}
+
+.spec-console-body {
+    padding: 20px;
+    color: #d8cde5;
+    font: 11px/2 monospace;
+    overflow-wrap: anywhere;
+}
+
+.spec-console-body p {
+    margin: 0 0 4px;
+}
+
+.spec-prompt { color: #c084fc; }
+.spec-ok { color: #86efac; }
+.spec-warn { color: #f0abfc; }
+.spec-muted { color: #8f82a4; }
+
+.spec-final-line {
+    margin-top: 15px !important;
+    padding-top: 13px;
+    border-top: 1px dashed #8b5bb544;
+    color: #c084fc;
+}
+
+.spec-final-line strong {
+    display: block;
+    color: #f0d5ff;
+    margin-top: 4px;
+}
+
+.spec-run-button,
+.spec-modal-close-bottom {
+    margin: 0 20px 20px;
+    padding: 11px 14px;
+    color: #e9d5ff;
+    background: #a855f715;
+    border: 1px solid #a855f766;
+    border-radius: 6px;
+    font: 10px monospace;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.spec-run-button:hover,
+.spec-modal-close-bottom:hover {
+    background: #a855f733;
+    transform: translateY(-2px);
+}
+
+.spec-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #05030ad9;
+    backdrop-filter: blur(9px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+.spec-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.spec-modal-box {
+    width: min(100%, 430px);
+    padding-bottom: 20px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 0%, #a855f720, transparent 45%),
+        #100b19;
+    border: 1px solid #c084fc77;
+    border-radius: 14px;
+    box-shadow: 0 0 70px #7e22ce22;
+    transform: translateY(15px) scale(.98);
+    transition: transform .25s ease;
+}
+
+.spec-modal.is-open .spec-modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.spec-modal-top button {
+    padding: 0 5px;
+    color: #d8a4ff;
+    background: none;
+    border: 0;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.spec-modal-icon {
+    padding-top: 25px;
+    text-align: center;
+    font-size: 38px;
+}
+
+.spec-modal-label {
+    margin: 18px 20px 8px;
+    color: #c084fc;
+    text-align: center;
+    font: 9px monospace;
+    letter-spacing: 2px;
+}
+
+.spec-modal-box h3 {
+    margin: 0 20px 12px;
+    color: #f5edff;
+    text-align: center;
+    font-size: 21px;
+}
+
+.spec-modal-box p {
+    margin: 0 25px 20px;
+    color: #c9b9d9;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.spec-modal-foot {
+    margin: 0 20px 18px;
+    padding-top: 13px;
+    border-top: 1px dashed #8b5bb544;
+    color: #8f82a4;
+    text-align: center;
+    font: 9px monospace;
+    letter-spacing: 1px;
+}
+
+.spec-modal-close-bottom {
+    display: block;
+    margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+    .spec-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .spec-item {
+        min-height: 155px;
+        padding: 14px;
+    }
+
+    .spec-item strong {
+        font-size: 13px;
+    }
+
+    .spec-label {
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .spec-console-body {
+        padding: 14px;
+        font-size: 10px;
+    }
+
+    .spec-file-id {
+        width: 100%;
+        margin-left: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .specs *,
+    .specs *::before,
+    .specs *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+
+<script>
+(() => {
+    const root = document.getElementById("specs");
+    if (!root || root.dataset.specsReady === "true") return;
+    root.dataset.specsReady = "true";
+
+    const modal = root.querySelector("#specModal");
+    const modalIcon = root.querySelector("#specModalIcon");
+    const modalLabel = root.querySelector("#specModalLabel");
+    const modalTitle = root.querySelector("#specModalTitle");
+    const modalMessage = root.querySelector("#specModalMessage");
+    const closeButton = root.querySelector("#specModalClose");
+    const doneButton = root.querySelector("#specModalDone");
+    let previousFocus = null;
+
+    function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        if (previousFocus) previousFocus.focus();
+    }
+
+    root.querySelectorAll(".spec-item").forEach((card) => {
+        card.addEventListener("click", () => {
+            previousFocus = card;
+            modalIcon.textContent =
+                card.querySelector(".spec-icon")?.textContent || "💜";
+            modalLabel.textContent =
+                card.querySelector(".spec-label")?.textContent || "CLASSIFIED DETAIL";
+            modalTitle.textContent =
+                card.querySelector("strong")?.textContent || "Secret file";
+            modalMessage.textContent = card.dataset.reveal || "";
+            modal.classList.add("is-open");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+            closeButton.focus();
+        });
+    });
+
+    closeButton.addEventListener("click", closeModal);
+    doneButton.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.classList.contains("is-open")) {
+            closeModal();
+        }
+    });
+
+    const scanButton = root.querySelector("#specRunScan");
+    const output = root.querySelector("#specConsoleOutput");
+
+    const scanLines = [
+        '<p><span class="spec-prompt">kendi@heart:~$</span> run full_scan --subject=him</p>',
+        '<p class="spec-muted">Rechecking the evidence...</p>',
+        '<p><span class="spec-ok">[OK]</span> Handsome: still a problem</p>',
+        '<p><span class="spec-ok">[OK]</span> Living rent-free: confirmed</p>',
+        '<p><span class="spec-ok">[OK]</span> Smile caused: yes, again</p>',
+        '<p><span class="spec-warn">[!!]</span> Researcher objectivity: missing</p>',
+        '<p><span class="spec-warn">[!!]</span> Cure: not currently being sought</p>',
+        '<p class="spec-final-line">FINAL VERDICT:<strong>STILL MY FAVOURITE PLOT TWIST.</strong></p>'
+    ];
+
+    scanButton.addEventListener("click", () => {
+        output.innerHTML = "";
+        scanButton.disabled = true;
+        scanButton.textContent = "SCANNING...";
+
+        scanLines.forEach((line, index) => {
+            window.setTimeout(() => {
+                output.insertAdjacentHTML("beforeend", line);
+
+                if (index === scanLines.length - 1) {
+                    scanButton.disabled = false;
+                    scanButton.textContent = "↻ RUN THE DIAGNOSTIC AGAIN";
+                }
+            }, index * 220);
+        });
+    });
+})();
+</script>
+
+
+<!-- =====================================================
+     CHESS
+===================================================== -->
+
+<section class="chess-section" id="chess">
+
+    <div class="section-label">
+        04 // CHESS ENGINE
+    </div>
+
+    <h2>
+        Think carefully.
+    </h2>
+
+    <p style="color:#958a9f; margin-bottom:30px;">
+        Every great story is made one move at a time.
+    </p>
+
+    <div class="chess-stage">
+
+        <div
+            class="chess-board"
+            id="chessBoard">
+        </div>
+
+        <div
+            class="checkmate-overlay"
+            id="checkmateOverlay">
+
+            <div class="checkmate-title">
+                CHECKMATE
+            </div>
+
+            <div class="checkmate-line">
+                D_SYSTEM // FINAL MOVE ACCEPTED
+            </div>
+
+            <div class="birthday-note">
+
+                <strong>
+                    HAPPY BIRTHDAY, BABY. 💜
+                </strong>
+
+                <br><br>
+
+                I LOVE YOU.
+
+                <br>
+
+                You may have won the game...
+
+                <br>
+
+                but you already had my heart.
+
+            </div>
+
+            <button
+                class="checkmate-button"
+                id="continueAfterMate">
+
+                CONTINUE ↓
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        class="chess-status"
+        id="chessMessage">
+
+        Your move, engineer.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MUSIC
+===================================================== -->
+
+<section
+    class="music-section"
+    id="music">
+
+    <div class="section-label">
+        05 // AUDIO SYSTEM
+    </div>
+
+    <h2>
+        The soundtrack of you.
+    </h2>
+
+
+    <div
+        class="vintage-player"
+        id="vintagePlayer">
+
+
+        <div class="vintage-header">
+
+            <div class="vintage-era">
+                D_SYSTEM PRESENTS
+            </div>
+
+            <div class="vintage-title">
+                A Private Listening Room
+            </div>
+
+            <div class="vintage-rule"></div>
+
+            <div class="vintage-subtitle">
+                SIX RECORDS // ONE STORY // NO SKIPPING AHEAD
+            </div>
+
+        </div>
+
+
+        <div class="record-room">
+
+
+            <div class="record-stage">
+
+                <div class="record-shadow"></div>
+
+                <div
+                    class="vinyl"
+                    id="vinyl">
+
+                    <div class="vinyl-label">
+
+                        <div class="vinyl-label-content">
+
+                            D_SYSTEM
+
+                            <small id="vinylLabelText">
+                                RECORD 001
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="vinyl-hole"></div>
+
+                </div>
+
+                <div class="needle-arm"></div>
+
+            </div>
+
+
+            <div
+                class="record-info"
+                id="recordInfo">
+
+                <div class="now-playing">
+                    NOW PLAYING
+                </div>
+
+                <div
+                    class="record-number"
+                    id="recordNumber">
+
+                    RECORD 001 / 006
+
+                </div>
+
+                <div
+                    class="vintage-song-title"
+                    id="songTitle">
+
+                    Birthday Song
+
+                </div>
+
+                <div
+                    class="vintage-artist"
+                    id="songArtist">
+
+                    GUESS
+
+                </div>
+
+                <div
+                    class="song-story"
+                    id="songDescription">
+
+                    A vintage birthday message
+                    hidden inside a song.
+
+                </div>
+
+                <div
+                    class="vintage-quote"
+                    id="songQuote">
+
+                    "Some songs are not just songs.
+                    They become memories."
+
+                </div>
+
+
+                <div class="vintage-controls">
+
+                    <button
+                        class="vintage-control"
+                        id="previousSong"
+                        aria-label="Previous record">
+
+                        ←
+
+                    </button>
+
+                    <button
+                        class="vintage-control play"
+                        id="playSong"
+                        aria-label="Play or pause">
+
+                        ▶
+
+                    </button>
+
+                    <button
+                        class="vintage-control"
+                        id="nextSong"
+                        aria-label="Next record">
+
+                        →
+
+                    </button>
+
+                </div>
+
+
+                <div class="next-record">
+
+                    <div class="next-label">
+                        THE STORY CONTINUES
+                    </div>
+
+                    <button
+                        class="next-record-btn"
+                        id="nextRecordButton">
+
+                        NEXT RECORD →
+
+                    </button>
+
+                    <div
+                        class="next-teaser"
+                        id="nextTeaser">
+
+                        NEXT RECORD: CLASSIFIED
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="soundcloud-player-wrapper">
+
+            <iframe
+                id="soundcloudPlayer"
+                allow="autoplay"
+                scrolling="no"
+                frameborder="no"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/joyce-valenzuela/make-me-beg-slowburn&color=%23a855f7&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
+            </iframe>
+
+        </div>
+
+
+        <div class="music-audio-note">
+
+            PRIVATE AUDIO ENGINE // CONNECTED<br>
+
+            PRESS PLAY TO LISTEN // PRESS NEXT RECORD TO DISCOVER
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CHEESE // LEVEL 06: UNCONTAINABLE
+===================================================== -->
+
+<section class="cheese-section" id="cheeseEmergency">
+
+    <div class="section-label">
+        06 // EDIBLE SYSTEM VULNERABILITY
+    </div>
+
+    <h2>Sir, put the cheese down.</h2>
+
+    <p class="cheese-intro">
+        We have received several reports.
+        <br>
+        The situation is getting... <em>cheesier.</em>
+    </p>
+
+    <div class="cheese-game">
+
+        <div class="cheese-topbar">
+            <span><i class="cheese-status-dot"></i> LIVE INCIDENT</span>
+            <span>CASE #CHEDDAR-001</span>
+        </div>
+
+        <div class="cheese-main">
+
+            <div class="cheese-scanner-label">
+                SCANNING SUBJECT'S SNACK HISTORY...
+            </div>
+
+            <button class="cheese" id="cheese" type="button"
+                    aria-label="Scan the suspicious cheese">
+                🧀
+            </button>
+
+            <div class="cheese-tap-hint" id="cheeseTapHint">
+                [ CLICK THE EVIDENCE TO INVESTIGATE ]
+            </div>
+
+            <div class="cheese-meter">
+                <div class="cheese-meter-top">
+                    <span>CHEESE LEVEL</span>
+                    <strong id="cheesePercent">UNMEASURED</strong>
+                </div>
+                <div class="cheese-meter-track">
+                    <div class="cheese-meter-fill" id="cheeseMeterFill"></div>
+                </div>
+            </div>
+
+            <div class="cheese-output" id="cheeseOutput" aria-live="polite">
+                <span class="cheese-output-prompt">&gt;</span>
+                Awaiting user interaction...
+            </div>
+
+            <button class="cheese-scan-btn" id="cheeseScanBtn" type="button">
+                INITIATE CHEESE AUDIT ↗
+            </button>
+
+        </div>
+
+        <div class="cheese-bottom">
+            <span>SECURITY CLASSIFICATION: EXTRA MATURE</span>
+            <span>STATUS: VERY SUSPECT</span>
+        </div>
+
+    </div>
+
+    <div class="cheese-treatment" id="cheeseTreatment" hidden>
+
+        <div class="cheese-treatment-tag">
+            ⚠️ INTERVENTION REQUIRED
+        </div>
+
+        <h3>A treatment plan has been prepared.</h3>
+
+        <p>
+            Unfortunately, the treatment committee has discovered
+            that the patient is rather handsome and has decided
+            to be unhelpful.
+        </p>
+
+        <p class="cheese-question">
+            What should we do with him?
+        </p>
+
+        <div class="cheese-choices">
+            <button type="button" class="cheese-choice" data-choice="limit">
+                🛑 Install Cheese Limiter
+            </button>
+
+            <button type="button" class="cheese-choice" data-choice="freedom">
+                🧀 Let This Man Live
+            </button>
+        </div>
+
+        <div class="cheese-verdict" id="cheeseVerdict" aria-live="polite"></div>
+
+    </div>
+
+    <div class="cheese-love-note">
+        <span>PS // FROM YOUR FAVOURITE PERSON</span>
+        <p>
+            I reserve the right to steal a bite of your food,
+            steal your hoodies, and steal a little more of your heart.
+            The cheese, however, is entirely your responsibility. 💜
+        </p>
+    </div>
+
+</section>
+
+<style>
+.cheese-section {
+    position: relative;
+}
+
+.cheese-intro {
+    margin: 15px 0 30px;
+    color: #bba9cf;
+    line-height: 1.9;
+}
+
+.cheese-intro em {
+    color: #d8a4ff;
+}
+
+.cheese-game {
+    overflow: hidden;
+    border: 1px solid #a855f755;
+    border-radius: 13px;
+    background: #09060f;
+    box-shadow: 0 15px 50px #00000030;
+}
+
+.cheese-topbar,
+.cheese-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 13px 16px;
+    color: #bca6d4;
+    background: #170e22;
+    font: 9px/1.6 monospace;
+    letter-spacing: 1px;
+}
+
+.cheese-topbar {
+    border-bottom: 1px solid #8b5bb533;
+}
+
+.cheese-bottom {
+    color: #88759c;
+    border-top: 1px solid #8b5bb533;
+    font-size: 8px;
+}
+
+.cheese-status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: #f0abfc;
+    box-shadow: 0 0 10px #d946ef;
+    animation: cheeseBlink 1s infinite;
+}
+
+@keyframes cheeseBlink {
+    50% { opacity: .3; }
+}
+
+.cheese-main {
+    padding: 30px 22px;
+    text-align: center;
+}
+
+.cheese-scanner-label,
+.cheese-tap-hint {
+    color: #a78abf;
+    font: 9px/1.8 monospace;
+    letter-spacing: 1.2px;
+}
+
+.cheese {
+    display: block;
+    margin: 17px auto 10px;
+    padding: 0;
+    background: none;
+    border: 0;
+    font-size: clamp(75px, 13vw, 110px);
+    line-height: 1.4;
+    cursor: pointer;
+    filter: drop-shadow(0 0 16px #facc1540);
+    animation: cheeseFloat 2.5s ease-in-out infinite;
+    transition: filter .2s, transform .2s;
+}
+
+.cheese:hover {
+    filter: drop-shadow(0 0 25px #facc1599);
+    transform: scale(1.12) rotate(-7deg);
+}
+
+.cheese:active {
+    transform: scale(.9) rotate(8deg);
+}
+
+.cheese.is-scanning {
+    animation: cheeseShake .35s linear infinite;
+}
+
+@keyframes cheeseFloat {
+    50% { translate: 0 -9px; }
+}
+
+@keyframes cheeseShake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    25% { transform: translateX(-7px) rotate(-6deg); }
+    75% { transform: translateX(7px) rotate(6deg); }
+}
+
+.cheese-meter {
+    max-width: 450px;
+    margin: 28px auto 18px;
+    text-align: left;
+}
+
+.cheese-meter-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 9px;
+    color: #a78abf;
+    font: 9px monospace;
+    letter-spacing: 1px;
+}
+
+.cheese-meter-top strong {
+    color: #f0d5ff;
+}
+
+.cheese-meter-track {
+    height: 8px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #281c35;
+}
+
+.cheese-meter-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #a855f7, #f0abfc, #facc15);
+    transition: width 1s ease;
+}
+
+.cheese-output {
+    min-height: 65px;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px dashed #8b5bb555;
+    border-radius: 7px;
+    color: #d8cde5;
+    background: #120b1a;
+    font: 11px/1.9 monospace;
+    text-align: left;
+}
+
+.cheese-output-prompt {
+    color: #c084fc;
+}
+
+.cheese-scan-btn,
+.cheese-choice {
+    padding: 12px 15px;
+    color: #f0d5ff;
+    background: #a855f718;
+    border: 1px solid #a855f777;
+    border-radius: 6px;
+    font: 10px/1.5 monospace;
+    letter-spacing: .7px;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+.cheese-scan-btn:hover,
+.cheese-choice:hover {
+    background: #a855f735;
+    transform: translateY(-2px);
+}
+
+.cheese-treatment {
+    margin-top: 25px;
+    padding: 25px;
+    border: 1px solid #c084fc55;
+    border-radius: 12px;
+    background: radial-gradient(circle at 100% 0%, #a855f71a, transparent 50%), #100b19;
+    animation: cheeseAppear .4s ease both;
+}
+
+.cheese-treatment[hidden] {
+    display: none;
+}
+
+@keyframes cheeseAppear {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cheese-treatment-tag {
+    color: #f0abfc;
+    font: 9px monospace;
+    letter-spacing: 1.3px;
+}
+
+.cheese-treatment h3 {
+    margin: 15px 0 10px;
+    color: #f5edff;
+    font-size: 21px;
+}
+
+.cheese-treatment p {
+    color: #bba9cf;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.cheese-treatment .cheese-question {
+    margin-top: 20px;
+    color: #e9d5ff;
+}
+
+.cheese-choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cheese-verdict {
+    margin-top: 20px;
+    color: #e9d5ff;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.cheese-love-note {
+    margin-top: 25px;
+    padding: 20px;
+    border-left: 2px solid #c084fc;
+    background: #a855f70b;
+}
+
+.cheese-love-note span {
+    color: #a78abf;
+    font: 9px monospace;
+    letter-spacing: 1.3px;
+}
+
+.cheese-love-note p {
+    margin: 12px 0 0;
+    color: #d8cde5;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+@media (max-width: 480px) {
+    .cheese-main { padding: 25px 15px; }
+    .cheese-treatment { padding: 20px; }
+    .cheese-choices { flex-direction: column; }
+    .cheese-choice { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cheese-section *,
+    .cheese-section *::before,
+    .cheese-section *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+
+<script>
+(() => {
+    const section = document.getElementById("cheeseEmergency");
+    if (!section || section.dataset.ready === "true") return;
+    section.dataset.ready = "true";
+
+    const cheese = section.querySelector("#cheese");
+    const scanButton = section.querySelector("#cheeseScanBtn");
+    const hint = section.querySelector("#cheeseTapHint");
+    const output = section.querySelector("#cheeseOutput");
+    const meter = section.querySelector("#cheeseMeterFill");
+    const percent = section.querySelector("#cheesePercent");
+    const treatment = section.querySelector("#cheeseTreatment");
+    const verdict = section.querySelector("#cheeseVerdict");
+
+    let scanned = false;
+
+    const results = [
+        "Checking snack preferences...",
+        "Burger detected. No concerns.",
+        "Cheesecake detected. Patient is smiling.",
+        "Cheese detected in suspiciously large quantities.",
+        "Attempting to establish a reasonable limit...",
+        "ERROR 418: SUBJECT IS TOO CHEESY TO BE CONTAINED.",
+        "Recommendation: stop asking questions and bring snacks."
+    ];
+
+    function runScan() {
+        if (scanned) {
+            output.innerHTML =
+                '<span class="cheese-output-prompt">&gt;</span> Audit repeated. ' +
+                'The cheese situation has not improved. Neither has our confidence in containment.';
+            meter.style.width = "100%";
+            percent.textContent = "STILL 100%";
+            return;
+        }
+
+        scanned = true;
+        cheese.classList.add("is-scanning");
+        cheese.disabled = true;
+        scanButton.disabled = true;
+        scanButton.textContent = "AUDIT IN PROGRESS...";
+        hint.textContent = "[ PLEASE DO NOT FEED THE SUBJECT ]";
+        output.textContent = "> Connecting to snack database...";
+
+        let index = 0;
+
+        function nextLine() {
+            if (index < results.length) {
+                output.innerHTML =
+                    '<span class="cheese-output-prompt">&gt;</span> ' +
+                    results[index];
+                meter.style.width = ((index + 1) / results.length * 100) + "%";
+                percent.textContent =
+                    Math.round((index + 1) / results.length * 100) + "%";
+                index++;
+                window.setTimeout(nextLine, 650);
+            } else {
+                cheese.classList.remove("is-scanning");
+                cheese.disabled = false;
+                scanButton.disabled = false;
+                scanButton.textContent = "REPEAT THE INVESTIGATION";
+                hint.textContent = "[ EVIDENCE CONFIRMED 🧀 ]";
+                treatment.hidden = false;
+                treatment.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+        }
+
+        window.setTimeout(nextLine, 500);
+    }
+
+    cheese.addEventListener("click", runScan);
+    scanButton.addEventListener("click", runScan);
+
+    section.querySelectorAll(".cheese-choice").forEach((button) => {
+        button.addEventListener("click", () => {
+            const choice = button.dataset.choice;
+
+            if (choice === "limit") {
+                verdict.textContent =
+                    "INSTALLATION FAILED. Patient has requested extra cheese. " +
+                    "The system administrator has been bribed with cheesecake. " +
+                    "No further action will be taken. 🧀";
+            } else {
+                verdict.textContent =
+                    "DECISION APPROVED. Patient is free to pursue his cheesy destiny. " +
+                    "The girlfriend accepts these terms, provided she gets a bite. 💜";
+            }
+
+            section.querySelectorAll(".cheese-choice").forEach((choiceButton) => {
+                choiceButton.disabled = true;
+                choiceButton.style.opacity = ".55";
+            });
+        });
+    });
+})();
+</script>
+
+<!-- =====================================================
+     LIFESTYLE
+===================================================== -->
+
+<section
+    class="lifestyle">
+
+    <div class="section-label">
+        07 // USER PROFILE
+    </div>
+
+    <h2>
+        Your World.
+    </h2>
+
+    <div class="lifestyle-grid">
+
+        <div class="lifestyle-card">
+
+            <div class="icon">
+                🍔
+            </div>
+
+            <h3>
+                Preferred Fuel
+            </h3>
+
+            <p>
+                Burger.
+                Milkshake.
+                Extra cheese, obviously.
+                Cheesecake for dessert.
+            </p>
+
+        </div>
+
+
+        <div class="lifestyle-card">
+
+            <div class="icon">
+                ♟
+            </div>
+
+            <h3>
+                Favorite Game
+            </h3>
+
+            <p>
+                Chess — because apparently
+                solving problems in code
+                wasn't enough.
+            </p>
+
+        </div>
+
+
+        <div class="lifestyle-card">
+
+            <div class="icon">
+                💜
+            </div>
+
+            <h3>
+                Favorite Color
+            </h3>
+
+            <p>
+                Purple.
+                Obviously a man with taste.
+            </p>
+
+        </div>
+
+
+        <div class="lifestyle-card">
+
+            <div class="icon">
+                👔
+            </div>
+
+            <h3>
+                Fashion System
+            </h3>
+
+            <p>
+                Good clothes.
+                Good taste.
+                Good hair.
+                Zero configuration errors.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MEMORY DATABASE // SECTION 08
+===================================================== -->
+
+<section class="memories" id="memories">
+<style>
+/* =====================================================
+   08 // MEMORY DATABASE // TRUE CLICK-TO-FULLSCREEN ORBIT
+   No permanently selected memory. Every node is independent.
+===================================================== */
+.memory-database-08{position:relative;width:100%;min-height:900px;overflow:hidden;padding:34px 0 50px;background:radial-gradient(circle at 50% 48%,rgba(168,85,247,.16),transparent 25%),radial-gradient(circle at 50% 48%,rgba(1,255,244,.05),transparent 55%),linear-gradient(180deg,#08050d,#030207 88%);border:1px solid #2b1938;box-shadow:inset 0 0 120px rgba(0,0,0,.72)}
+.memory-database-08:before{content:"// MEMORY_ARCHIVE::20 RECORDS // CLICK ANY NODE // OPEN FULLSCREEN //";display:block;padding:0 30px 16px;color:#62546d;font-size:9px;letter-spacing:1px}
+.memory-terminal-08{position:relative;z-index:5;max-width:1000px;margin:0 auto 4px;padding:0 30px;color:#8e7d98;font-size:10px;line-height:1.8}
+.memory-terminal-08 .active-line{color:#c084fc}
+.cursor-08{display:inline-block;width:7px;height:11px;margin-left:3px;background:#a855f7;vertical-align:-2px;animation:memoryCursor08 .8s infinite}
+@keyframes memoryCursor08{50%{opacity:0}}
+
+.memory-stage-08{position:relative;width:min(1180px,100%);height:620px;margin:0 auto;perspective:1800px;touch-action:none;cursor:grab;user-select:none;overflow:visible}
+.memory-stage-08.dragging{cursor:grabbing}
+.memory-stage-08:before{content:"";position:absolute;left:50%;top:50%;width:430px;height:430px;transform:translate(-50%,-50%);border:1px solid rgba(168,85,247,.12);border-radius:50%;box-shadow:0 0 70px rgba(168,85,247,.09),inset 0 0 60px rgba(1,255,244,.03);pointer-events:none}
+.memory-stage-08:after{content:"";position:absolute;left:50%;top:50%;width:570px;height:570px;transform:translate(-50%,-50%);border:1px dashed rgba(1,255,244,.06);border-radius:50%;pointer-events:none;animation:memoryRingPulse08 5s ease-in-out infinite}
+@keyframes memoryRingPulse08{50%{transform:translate(-50%,-50%) scale(1.035);opacity:.55}}
+
+.memory-ring-08{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;pointer-events:none}
+.memory-card-08{position:absolute;left:0;top:0;width:142px;height:190px;padding:7px;border:1px solid rgba(192,132,252,.38);border-radius:10px;background:linear-gradient(145deg,rgba(20,11,29,.96),rgba(5,3,10,.96));box-shadow:0 0 22px rgba(168,85,247,.13),inset 0 0 18px rgba(255,255,255,.025);transform-style:preserve-3d;transition:filter .25s ease,opacity .25s ease,border-color .25s ease,box-shadow .25s ease,transform .25s ease;cursor:pointer;pointer-events:auto;color:#c084fc;font-family:inherit;outline:none}
+.memory-card-08:hover{border-color:#01fff4;box-shadow:0 0 25px rgba(1,255,244,.32),0 0 50px rgba(168,85,247,.2);filter:brightness(1.2)!important;z-index:9000!important}
+.memory-card-08:focus-visible{border-color:#01fff4;box-shadow:0 0 25px rgba(1,255,244,.45),0 0 65px rgba(168,85,247,.35)}
+.memory-card-08 img{display:block;width:100%;height:155px;object-fit:cover;border-radius:6px;pointer-events:none;user-select:none}
+.memory-node-label-08{display:block;padding-top:7px;text-align:center;font-size:8px;letter-spacing:1.5px;color:#9f7bb8;pointer-events:none}
+
+/* IMPORTANT: there is deliberately NO permanently displayed selected-memory image here. */
+.memory-orbit-title-08{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;text-align:center;pointer-events:none;width:280px}
+.memory-orbit-title-08 .core{font-size:12px;letter-spacing:5px;color:#c084fc;text-shadow:0 0 16px rgba(192,132,252,.8)}
+.memory-orbit-title-08 .sub{margin-top:10px;font-size:8px;letter-spacing:2px;color:#62546d}
+.memory-progress-08{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);width:min(500px,70%);height:2px;background:#1b1024;z-index:5}
+.memory-progress-fill-08{height:100%;width:0%;background:linear-gradient(90deg,#a855f7,#01fff4);box-shadow:0 0 12px rgba(1,255,244,.55);transition:width .35s ease}
+.memory-controls-08{position:relative;z-index:10;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.memory-control-08{background:rgba(10,5,16,.9);border:1px solid #392149;color:#a98ab8;padding:9px 15px;font:9px inherit;letter-spacing:1.5px;cursor:pointer;transition:.2s}
+.memory-control-08:hover{border-color:#01fff4;color:#01fff4;box-shadow:0 0 18px rgba(1,255,244,.2)}
+.memory-hint-08{position:relative;z-index:5;text-align:center;margin-top:17px;color:#4e4057;font-size:8px;letter-spacing:1.5px}
+.memory-db-footer-08{position:relative;z-index:5;text-align:center;margin-top:25px;color:#51435a;font-size:8px;line-height:1.9;letter-spacing:1px}
+.memory-db-footer-08 strong{color:#765889}
+
+/* =====================================================
+   FULL-PAGE MEMORY VIEWER
+===================================================== */
+.memory-viewer-08{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:0;background:radial-gradient(circle at center,rgba(70,22,100,.42),rgba(2,1,5,.985) 72%);backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
+.memory-viewer-08.open{opacity:1;visibility:visible;pointer-events:auto}
+.memory-viewer-image-wrap-08{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:70px 30px 95px}
+.memory-viewer-image-08{display:block;max-width:calc(100vw - 60px);max-height:calc(100vh - 165px);width:auto;height:auto;object-fit:contain;border-radius:12px;border:1px solid rgba(192,132,252,.8);box-shadow:0 0 25px rgba(1,255,244,.6),0 0 80px rgba(168,85,247,.7),0 0 150px rgba(168,85,247,.3);animation:memoryGlow08 2.2s ease-in-out infinite alternate}
+@keyframes memoryGlow08{from{filter:brightness(1);box-shadow:0 0 22px rgba(1,255,244,.55),0 0 65px rgba(168,85,247,.55),0 0 120px rgba(168,85,247,.18)}to{filter:brightness(1.08);box-shadow:0 0 35px rgba(1,255,244,.85),0 0 100px rgba(168,85,247,.8),0 0 180px rgba(168,85,247,.3)}}
+.memory-viewer-top-08{position:absolute;top:24px;left:30px;right:30px;display:flex;justify-content:space-between;align-items:center;z-index:3;pointer-events:none}
+.memory-viewer-id-08{color:#01fff4;font-size:11px;letter-spacing:3px;text-shadow:0 0 12px rgba(1,255,244,.8)}
+.memory-viewer-close-08{pointer-events:auto;background:rgba(5,3,10,.86);border:1px solid #633879;color:#c084fc;padding:10px 14px;font:10px inherit;letter-spacing:2px;cursor:pointer}
+.memory-viewer-close-08:hover{color:#01fff4;border-color:#01fff4;box-shadow:0 0 20px rgba(1,255,244,.3)}
+.memory-viewer-caption-08{position:absolute;left:50%;bottom:27px;transform:translateX(-50%);width:min(760px,80vw);text-align:center;color:#e6d8ed;font-size:12px;letter-spacing:1px;line-height:1.7;text-shadow:0 0 15px rgba(168,85,247,.85);z-index:4}
+.memory-viewer-caption-08:before{content:"// ";color:#01fff4}
+.memory-viewer-caption-08:after{content:" //";color:#01fff4}
+.memory-viewer-counter-08{position:absolute;top:25px;left:50%;transform:translateX(-50%);color:#62546d;font-size:8px;letter-spacing:2px;z-index:4}
+
+@media(max-width:700px){
+.memory-database-08{min-height:760px}
+.memory-stage-08{height:500px}
+.memory-card-08{width:105px;height:145px;padding:5px}
+.memory-card-08 img{height:112px}
+.memory-stage-08:before{width:300px;height:300px}
+.memory-stage-08:after{width:390px;height:390px}
+.memory-orbit-title-08{width:180px}
+.memory-orbit-title-08 .core{font-size:9px;letter-spacing:3px}
+.memory-viewer-image-wrap-08{padding:60px 10px 85px}
+.memory-viewer-image-08{max-width:calc(100vw - 20px);max-height:calc(100vh - 145px);border-radius:8px}
+.memory-viewer-top-08{top:16px;left:15px;right:15px}
+.memory-viewer-caption-08{bottom:16px;width:90vw;font-size:10px}
+}
+
+/* =====================================================
+   08 // NERD OVERDRIVE // TERMINAL DATA ATMOSPHERE
+===================================================== */
+.memory-database-08{isolation:isolate}
+.memory-techfield-08{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;opacity:.9;background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(192,132,252,.025) 6px 7px)}
+.memory-code-rain-08{position:absolute;inset:-20%;display:grid;grid-template-columns:repeat(18,1fr);transform:perspective(700px) rotateX(9deg);opacity:.42;filter:drop-shadow(0 0 5px rgba(1,255,244,.28))}
+.memory-code-column-08{font:9px/1.7 'Courier New',monospace;color:#a855f7;white-space:pre;writing-mode:vertical-rl;animation:memoryCodeFall08 var(--fall,9s) linear infinite;animation-delay:var(--delay,0s);text-shadow:0 0 7px rgba(168,85,247,.65)}
+.memory-code-column-08:nth-child(3n){color:#01fff4}.memory-code-column-08:nth-child(4n){color:#c084fc}
+@keyframes memoryCodeFall08{from{transform:translateY(-35%)}to{transform:translateY(35%)}}
+.memory-scanline-08{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(1,255,244,.5),rgba(192,132,252,.8),transparent);box-shadow:0 0 18px rgba(1,255,244,.5);animation:memoryScan08 6s linear infinite;opacity:.35}
+@keyframes memoryScan08{0%{top:-3%}100%{top:103%}}
+.memory-data-packets-08{position:absolute;inset:0;overflow:hidden}
+.memory-packet-08{position:absolute;font:9px 'Courier New',monospace;color:#01fff4;letter-spacing:1px;opacity:0;animation:memoryPacket08 var(--t) linear infinite;animation-delay:var(--d);text-shadow:0 0 9px rgba(1,255,244,.7);white-space:nowrap}
+.memory-packet-08 b{color:#c084fc}
+@keyframes memoryPacket08{0%{transform:translate3d(var(--x),105vh,0) rotate(-4deg);opacity:0}10%{opacity:.8}85%{opacity:.55}100%{transform:translate3d(calc(var(--x) + var(--drift)), -15vh,0) rotate(4deg);opacity:0}}
+.memory-float-glyph-08{position:absolute;color:#c084fc;font:700 18px 'Courier New',monospace;opacity:.22;animation:memoryGlyph08 var(--gt) ease-in-out infinite;animation-delay:var(--gd);text-shadow:0 0 12px rgba(168,85,247,.8)}
+@keyframes memoryGlyph08{0%,100%{transform:translate(0,0) rotate(0) scale(.8);opacity:.08}50%{transform:translate(var(--gx),var(--gy)) rotate(180deg) scale(1.35);opacity:.4}}
+.memory-tech-hud-08{position:absolute;z-index:8;left:24px;right:24px;top:68px;display:flex;justify-content:space-between;pointer-events:none;font:8px 'Courier New',monospace;letter-spacing:2px;color:#6e6277;text-transform:uppercase}
+.memory-hud-chip-08{padding:7px 10px;border:1px solid rgba(168,85,247,.24);background:rgba(5,3,10,.62);box-shadow:0 0 18px rgba(168,85,247,.08)}
+.memory-hud-chip-08 .live{color:#01fff4;animation:memoryBlink08 1.1s steps(2,end) infinite}.memory-hud-chip-08 .purple{color:#c084fc}
+@keyframes memoryBlink08{50%{opacity:.25}}
+.memory-database-08>.memory-terminal-08,.memory-database-08>.memory-stage-08,.memory-database-08>.memory-controls-08,.memory-database-08>.memory-progress-08{z-index:10}
+.memory-stage-08{z-index:10!important}
+.memory-card-08:after{content:"";position:absolute;inset:-5px;border:1px solid rgba(1,255,244,.15);opacity:0;transition:.25s;box-shadow:0 0 20px rgba(1,255,244,.2)}
+.memory-card-08:hover:after{opacity:1;animation:memoryNodePulse08 .8s infinite alternate}
+@keyframes memoryNodePulse08{to{inset:-11px;opacity:.55}}
+.memory-node-label-08{position:relative}
+.memory-node-label-08:before{content:"›_ ";color:#01fff4;animation:memoryTyping08 .8s steps(2,end) infinite}
+@keyframes memoryTyping08{50%{opacity:0}}
+@media(max-width:700px){.memory-code-rain-08{grid-template-columns:repeat(10,1fr)}.memory-tech-hud-08{top:62px;left:10px;right:10px}.memory-hud-chip-08{font-size:7px;padding:5px}.memory-code-column-08{font-size:7px}}
+</style>
+
+<div class="memory-database-08">
+    <div class="memory-techfield-08" aria-hidden="true">
+        <div class="memory-code-rain-08" id="memoryCodeRain08"></div>
+        <div class="memory-data-packets-08" id="memoryPackets08"></div>
+        <div class="memory-scanline-08"></div>
+        <span class="memory-float-glyph-08" style="left:8%;top:22%;--gx:34px;--gy:-18px;--gt:4s;--gd:-1s">{ }</span>
+        <span class="memory-float-glyph-08" style="left:88%;top:28%;--gx:-30px;--gy:25px;--gt:5s;--gd:-2s">&lt;/&gt;</span>
+        <span class="memory-float-glyph-08" style="left:13%;top:74%;--gx:24px;--gy:-28px;--gt:6s;--gd:-3s">01</span>
+        <span class="memory-float-glyph-08" style="left:82%;top:70%;--gx:-35px;--gy:-15px;--gt:4.5s;--gd:-.5s">0x7F</span>
+        <span class="memory-float-glyph-08" style="left:50%;top:14%;--gx:18px;--gy:25px;--gt:5.5s;--gd:-4s">SQL</span>
+    </div>
+    <div class="memory-tech-hud-08" aria-hidden="true">
+        <div class="memory-hud-chip-08"><span class="live">● LIVE</span> // MEMORY_KERNEL_08</div>
+        <div class="memory-hud-chip-08"><span class="purple">ENCRYPTION:</span> LOVE-256 // <span class="live">ONLINE</span></div>
+    </div>
+    
+    <div class="memory-terminal-08">
+        <span class="active-line">08 // MEMORY DATABASE</span><br>
+        <span>&gt; 20 image nodes detected...</span><br>
+        <span>&gt; panorama initialized... click any node to open fullscreen<span class="cursor-08"></span></span>
+    </div>
+
+    <div class="memory-stage-08" id="memoryTape08">
+        <div class="memory-ring-08" id="memoryOrbit08">
+            <button class="memory-card-08" data-id="MEMORY_001" data-note="The beginning of another little forever." data-index="0" type="button" aria-label="Open Memory 001">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image.png" alt="Memory 001" draggable="false">
+                <span class="memory-node-label-08">MEMORY_001</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_002" data-note="For the softest part of you that I get to know." data-index="1" type="button" aria-label="Open Memory 002">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy.png" alt="Memory 002" draggable="false">
+                <span class="memory-node-label-08">MEMORY_002</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_003" data-note="That laugh I would save in every backup." data-index="2" type="button" aria-label="Open Memory 003">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 2.png" alt="Memory 003" draggable="false">
+                <span class="memory-node-label-08">MEMORY_003</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_004" data-note="A moment that deserved permanent storage." data-index="3" type="button" aria-label="Open Memory 004">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 4.png" alt="Memory 004" draggable="false">
+                <span class="memory-node-label-08">MEMORY_004</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_005" data-note="Some memories do not need an explanation." data-index="4" type="button" aria-label="Open Memory 005">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 5.png" alt="Memory 005" draggable="false">
+                <span class="memory-node-label-08">MEMORY_005</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_006" data-note="I would choose this moment again." data-index="5" type="button" aria-label="Open Memory 006">
+                <img src="Images/My Images/image copy 6.png" alt="Memory 006" draggable="false">
+                <span class="memory-node-label-08">MEMORY_006</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_007" data-note="Saved under: things_that_make_me_smile." data-index="6" type="button" aria-label="Open Memory 007">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 7.png" alt="Memory 007" draggable="false">
+                <span class="memory-node-label-08">MEMORY_007</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_008" data-note="A small frame from a very big feeling." data-index="7" type="button" aria-label="Open Memory 008">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 8.png" alt="Memory 008" draggable="false">
+                <span class="memory-node-label-08">MEMORY_008</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_009" data-note="No compression could preserve this feeling." data-index="8" type="button" aria-label="Open Memory 009">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 9.png" alt="Memory 009" draggable="false">
+                <span class="memory-node-label-08">MEMORY_009</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_010" data-note="Checkpoint reached: happiness detected." data-index="9" type="button" aria-label="Open Memory 010">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 10.png" alt="Memory 010" draggable="false">
+                <span class="memory-node-label-08">MEMORY_010</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_011" data-note="The kind of day I would clone forever." data-index="10" type="button" aria-label="Open Memory 011">
+                <img src="Images/My Images/image copy 11.png" alt="Memory 011" draggable="false">
+                <span class="memory-node-label-08">MEMORY_011</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_012" data-note="One more reason this archive keeps growing." data-index="11" type="button" aria-label="Open Memory 012">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 12.png" alt="Memory 012" draggable="false">
+                <span class="memory-node-label-08">MEMORY_012</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_013" data-note="Stored somewhere between chaos and comfort." data-index="12" type="button" aria-label="Open Memory 013">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 13.png" alt="Memory 013" draggable="false">
+                <span class="memory-node-label-08">MEMORY_013</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_014" data-note="A frame I never want garbage-collected." data-index="13" type="button" aria-label="Open Memory 014">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 14.png" alt="Memory 014" draggable="false">
+                <span class="memory-node-label-08">MEMORY_014</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_015" data-note="This one gets a permanent branch." data-index="14" type="button" aria-label="Open Memory 015">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 15.png" alt="Memory 015" draggable="false">
+                <span class="memory-node-label-08">MEMORY_015</span>
+            </button>
+            <button class="memory-card-08" data-id="MEMORY_016" data-note="The moment" data-index="15" type="button" aria-label="Open Memory 016">
+                <img src="C:\Users\l.wangari\Music\Data Cleanup\Images\My Images\image copy 16.png" alt="Memory 016" draggable="false">
+                <span class="memory-node-label-08">MEMORY_016</span>
+            </button>
+            
+        </div>
+
+        <div class="memory-orbit-title-08">
+            <div class="core">OUR MEMORY ARCHIVE</div>
+            <div class="sub">20 MOMENTS // INFINITE REPLAYS</div>
+        </div>
+        <div class="memory-progress-08"><div class="memory-progress-fill-08" id="memoryProgress08"></div></div>
+    </div>
+
+    <div class="memory-controls-08">
+        <button class="memory-control-08" id="memoryPrev08" type="button">&lt;&lt; PREVIOUS</button>
+        <button class="memory-control-08" id="memoryPause08" type="button">PAUSE ORBIT</button>
+        <button class="memory-control-08" id="memoryNext08" type="button">NEXT &gt;&gt;</button>
+    </div>
+    <div class="memory-hint-08">[ DRAG ] ROTATE PANORAMA &nbsp; // &nbsp; [ CLICK ] OPEN MEMORY &nbsp; // &nbsp; [ ESC ] CLOSE</div>
+    <div class="memory-db-footer-08"><strong>QUERY COMPLETE</strong><br>20 records loaded // every memory is independently clickable<br><strong>STATUS: ARCHIVE GROWING</strong></div>
+</div>
+
+<div class="memory-viewer-08" id="memoryViewer08" aria-hidden="true">
+    <div class="memory-viewer-top-08">
+        <div class="memory-viewer-id-08" id="memoryViewerId08">MEMORY_---</div>
+        <button class="memory-viewer-close-08" id="memoryViewerClose08" type="button">CLOSE MEMORY ×</button>
+    </div>
+    <div class="memory-viewer-counter-08" id="memoryViewerCounter08">FULLSCREEN MEMORY // 00 / 20</div>
+    <div class="memory-viewer-image-wrap-08">
+        <img class="memory-viewer-image-08" id="memoryViewerImage08" src="" alt="Selected memory">
+    </div>
+    <div class="memory-viewer-caption-08" id="memoryViewerCaption08"></div>
+</div>
+
+<script>
+(()=>{
+    const stage=document.getElementById('memoryTape08');
+    const cards=[...document.querySelectorAll('.memory-card-08')];
+    const progress=document.getElementById('memoryProgress08');
+    const prev=document.getElementById('memoryPrev08');
+    const next=document.getElementById('memoryNext08');
+    const pause=document.getElementById('memoryPause08');
+    const viewer=document.getElementById('memoryViewer08');
+    const viewerImage=document.getElementById('memoryViewerImage08');
+    const viewerId=document.getElementById('memoryViewerId08');
+    const viewerCaption=document.getElementById('memoryViewerCaption08');
+    const viewerCounter=document.getElementById('memoryViewerCounter08');
+    const close=document.getElementById('memoryViewerClose08');
+
+    const total=cards.length;
+    const step=360/total;
+    let rotation=0;
+    let orbitIndex=0;
+    let paused=false;
+    let dragging=false;
+    let moved=false;
+    let startX=0;
+    let startRotation=0;
+    let last=performance.now();
+
+    function render(){
+        const radius=Math.min(430,Math.max(285,stage.clientWidth*.38));
+
+        cards.forEach((card,i)=>{
+            const angle=i*step+rotation;
+            const rad=angle*Math.PI/180;
+            const depth=Math.cos(rad);
+            const x=Math.sin(rad)*radius;
+            const z=Math.cos(rad)*radius;
+
+            card.style.transform=`translate(-50%,-50%) translate3d(${x}px,0,${z}px) rotateY(${angle}deg)`;
+            card.style.opacity=Math.max(.22,.38+(depth+1)*.31);
+            card.style.filter=`brightness(${Math.max(.45,.62+(depth+1)*.29)})`;
+            card.style.zIndex=String(Math.round((depth+1)*1000));
+        });
+
+        progress.style.width=`${((orbitIndex+1)/total)*100}%`;
+    }
+
+    function openMemory(index){
+        const i=(index+total)%total;
+        const card=cards[i];
+        const image=card.querySelector('img');
+
+        viewerImage.src=image.currentSrc || image.src;
+        viewerImage.alt=image.alt;
+        viewerId.textContent=card.dataset.id;
+        viewerCounter.textContent=`FULLSCREEN MEMORY // ${String(i+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+        viewerCaption.textContent=card.dataset.note;
+
+        viewer.classList.add('open');
+        viewer.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+
+        paused=true;
+        pause.textContent='RESUME ORBIT';
+    }
+
+    function closeMemory(){
+        viewer.classList.remove('open');
+        viewer.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+    }
+
+    function focusMemory(index){
+        orbitIndex=(index+total)%total;
+        rotation=-orbitIndex*step;
+        render();
+    }
+
+    cards.forEach((card,i)=>{
+        card.addEventListener('click',event=>{
+            event.stopPropagation();
+            if(moved) return;
+            openMemory(i);
+        });
+    });
+
+    stage.addEventListener('pointerdown',event=>{
+        if(event.target.closest('.memory-card-08')) return;
+        dragging=true;
+        moved=false;
+        startX=event.clientX;
+        startRotation=rotation;
+        stage.classList.add('dragging');
+        stage.setPointerCapture(event.pointerId);
+    });
+
+    stage.addEventListener('pointermove',event=>{
+        if(!dragging) return;
+        const dx=event.clientX-startX;
+        if(Math.abs(dx)>7) moved=true;
+        rotation=startRotation+dx*.5;
+        render();
+    });
+
+    function endDrag(){
+        if(!dragging) return;
+        dragging=false;
+        stage.classList.remove('dragging');
+        setTimeout(()=>moved=false,80);
+    }
+
+    stage.addEventListener('pointerup',endDrag);
+    stage.addEventListener('pointercancel',endDrag);
+
+    prev.addEventListener('click',event=>{
+        event.stopPropagation();
+        focusMemory(orbitIndex-1);
+    });
+
+    next.addEventListener('click',event=>{
+        event.stopPropagation();
+        focusMemory(orbitIndex+1);
+    });
+
+    pause.addEventListener('click',event=>{
+        event.stopPropagation();
+        paused=!paused;
+        pause.textContent=paused?'RESUME ORBIT':'PAUSE ORBIT';
+    });
+
+    close.addEventListener('click',closeMemory);
+
+    viewer.addEventListener('click',event=>{
+        if(event.target===viewer) closeMemory();
+    });
+
+    document.addEventListener('keydown',event=>{
+        if(event.key==='Escape' && viewer.classList.contains('open')) closeMemory();
+        if(event.key==='ArrowRight' && viewer.classList.contains('open')) openMemory(orbitIndex+1);
+        if(event.key==='ArrowLeft' && viewer.classList.contains('open')) openMemory(orbitIndex-1);
+    });
+
+    function tick(now){
+        const delta=now-last;
+        last=now;
+
+        if(!paused && !dragging && !viewer.classList.contains('open')){
+            rotation-=delta*.006;
+            render();
+        }
+
+        requestAnimationFrame(tick);
+    }
+
+    render();
+    requestAnimationFrame(tick);
+})();
+</script>
+
+<script>
+(()=>{
+ const rain=document.getElementById('memoryCodeRain08');
+ const packets=document.getElementById('memoryPackets08');
+ if(!rain||!packets)return;
+ const chars='01{}[]<>/\\$#@%&*+=;:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+ for(let c=0;c<18;c++){
+   const col=document.createElement('div');
+   col.className='memory-code-column-08';
+   col.style.setProperty('--fall',(7+Math.random()*8).toFixed(2)+'s');
+   col.style.setProperty('--delay',(-Math.random()*10).toFixed(2)+'s');
+   let out='';
+   for(let j=0;j<34;j++){
+     let line='';
+     for(let k=0;k<Math.floor(3+Math.random()*5);k++) line+=chars[Math.floor(Math.random()*chars.length)];
+     out+=line+'\n';
+   }
+   col.textContent=out; rain.appendChild(col);
+ }
+ const packetText=['MEMORY_PACKET','IMG_DECODE','LOVE.exe','SELECT * FROM US','checksum: 20/20','PHOTO_NODE','connection: FOREVER','/usr/bin/romance','CACHE: NEVER_EXPIRES','status: unforgettable','git commit -m "us"','ACCESS::HEART'];
+ for(let i=0;i<22;i++){
+   const p=document.createElement('div'); p.className='memory-packet-08';
+   p.style.setProperty('--x',(Math.random()*100-10)+'vw');
+   p.style.setProperty('--drift',(Math.random()*180-90)+'px');
+   p.style.setProperty('--t',(7+Math.random()*11).toFixed(2)+'s');
+   p.style.setProperty('--d',(-Math.random()*15).toFixed(2)+'s');
+   p.innerHTML='<b>'+packetText[i%packetText.length]+'</b> // '+String(Math.floor(Math.random()*9999)).padStart(4,'0')+' // '+(Math.random()>.5?'OK':'SYNC');
+   packets.appendChild(p);
+ }
+})();
+</script>
+</section>
+
+
+<!-- =====================================================
+     LOVE LETTER
+===================================================== -->
+
+<section
+    class="love"
+    id="love">
+
+    <div class="letter">
+
+        <div class="section-label">
+            09 // PRIVATE MESSAGE
+        </div>
+
+        <h2>
+            For you.
+        </h2>
+
+        <p>
+            Somewhere between the conversations, the laughter, the music, the random moments, the chess games, the food, the photographs, and all the little things that nobody else would ever think twice about... you became someone so incredibly important to me.
+
+            <br><br>
+
+            And sometimes, I don't think I fully know how to put into words just how much you mean to me.
+
+            <br><br>
+
+            I love your mind. The way you think, the way you see things, the little things that make you <em>you</em>.
+
+            <br><br>
+
+            But more than anything, I love your heart.
+
+            <br><br>
+
+            I love your sweetness. The way you romanticize life, the way you find beauty in ordinary things, and the way you can be so brilliant and still be so soft. I love the little pieces of you that you probably don't even realize I notice.
+
+            <br><br>
+
+            And I love the way you've been there for me.
+
+            <br><br>
+
+            You've seen me smile, and you've seen me cry. You've been there in moments when I needed reassurance, when I needed a little comfort, when I needed someone to remind me that things would be okay. You've given me reasons to smile on days when smiling didn't come so easily. And somewhere along the way, without even realizing it, you became one of the people my heart feels safest with.
+
+            <br><br>
+
+            I swear, I love this man. 🥹❤️
+
+            <br><br>
+
+            And if there's one thing I hope you never have to question, it's how deeply you are loved by me. I hope I make you smile the way you make me smile. I hope I give you the same reassurance you have given me, the same softness, the same comfort, the same feeling of being understood and cared for. I hope that when life gets heavy, I can be a place where you can put it all down for a while. I hope you feel appreciated in all the little ways, even on the days when I don't quite find the right words to tell you.
+
+            <br><br>
+
+            Because you deserve to feel loved, too. Not just on your birthday, not just when everything is beautiful and easy, but in the ordinary moments, the difficult ones, and all the in-between days that make up a life.
+
+            <br><br>
+
+            And I hope that, in my own little ways, I get to keep showing you just how much you mean to me.
+
+            <br><br>
+
+            Sometimes I think about how enormous this universe is. All the people we could have met, all the paths we could have taken, all the little things that could have happened differently. And somehow, through all of it, our paths crossed. Somehow, in the middle of all this chaos, I got to know you. I got to laugh with you, make memories with you, care about you, and find a place for you in my heart that feels so entirely yours.
+
+            <br><br>
+
+            And I don't think I'll ever stop being grateful for that.
+
+            <br><br>
+
+            <strong>
+                Out of all the people in this world, I'm so glad it's you.
+            </strong>
+
+            <br><br>
+
+            Happy birthday, my love. ❤️
+
+            <br><br>
+
+            I hope this new year of your life is gentle with your heart. I hope it brings you the happiness you so freely give to others, the peace you deserve, the love you never have to doubt, and a thousand little reasons to smile.
+
+            <br><br>
+
+            And selfishly, I hope I get to be part of many more of those reasons.
+
+            <br><br>
+
+            I love you. More than these words can hold, and probably more than I know how to explain.
+
+        </p>
+
+        <div class="signature">
+            — Your girl 💜
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section class="final">
+
+    <div>
+
+        <div class="heart">
+            ♥
+        </div>
+
+
+        <div class="status">
+
+            D_SYSTEM STATUS
+
+            <br><br>
+
+            LOVE ................
+            <span>ONLINE</span>
+
+            <br>
+
+            MEMORIES ............
+            <span>GROWING</span>
+
+            <br>
+
+            HEART ...............
+            <span>OCCUPIED</span>
+
+            <br>
+
+            FUTURE ..............
+            <span>LOADING</span>
+
+            <br>
+
+            CHEESE ..............
+            <span>CRITICAL</span>
+
+            <br>
+
+            US ..................
+            <span>ACTIVE</span>
+
+            <br>
+
+            UPTIME ..............
+            <span>FOREVER</span>
+
+            <br><br><br>
+
+            <span>
+                NO SHUTDOWN AVAILABLE.
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    D_SYSTEM // Built with love // v∞.0.0
+
+</footer>
+
+
+<!-- =====================================================
+     SECRET MESSAGE
+===================================================== -->
+
+<div
+    class="secret-message"
+    id="secretMessage">
+
+    <div class="secret-content">
+
+        <div class="section-label">
+            SECRET PROCESS DETECTED
+        </div>
+
+        <h2>
+            You found me.
+        </h2>
+
+        <p>
+
+            There are things I could put into
+            a database...
+
+            <br><br>
+
+            memories,
+            photographs,
+            conversations,
+            dates,
+            songs...
+
+            <br><br>
+
+            But there is one thing
+            no database could ever properly store.
+
+            <br><br>
+
+            <strong>
+                The way my heart feels about you.
+            </strong>
+
+            <br><br>
+
+            Happy Birthday, beautiful man. 💜
+
+        </p>
+
+
+        <button
+            class="close-secret"
+            onclick="
+                document
+                .getElementById('secretMessage')
+                .style.display='none'
+            ">
+
+            CLOSE SECRET
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   BOOT SEQUENCE
+===================================================== */
+
+const bootLines = [
+
+    "> Establishing secure connection...",
+    "> Identifying user...",
+    "> USER: MBUGUA",
+    "> AGE: 27",
+    "> Loading personality...",
+    "> Loading music preferences...",
+    "> Loading chess engine...",
+    "> Loading cheese dependency...",
+    "> Loading fashion module...",
+    "> Loading romanticism...",
+    "> Loading memory database...",
+    "> Loading love service...",
+    "> SYSTEM READY."
+
+];
+
+let line = 0;
+let progress = 0;
+
+const terminalText =
+    document.getElementById("terminalText");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const bootStatus =
+    document.getElementById("bootStatus");
+
+const bootInterval = setInterval(() => {
+
+    if (line < bootLines.length) {
+
+        terminalText.innerHTML +=
+            bootLines[line] + "<br>";
+
+        line++;
+
+        progress +=
+            100 / bootLines.length;
+
+        progressBar.style.width =
+            progress + "%";
+
+    }
+
+    else {
+
+        clearInterval(bootInterval);
+
+        bootStatus.innerHTML =
+            "ACCESS GRANTED ♥";
+
+        setTimeout(() => {
+
+            const boot =
+                document.getElementById("boot");
+
+            boot.style.opacity = "0";
+
+            setTimeout(() => {
+
+                boot.style.display = "none";
+
+            }, 1000);
+
+        }, 1000);
+
+    }
+
+}, 400);
+
+
+/* =====================================================
+   CHESS ENGINE
+===================================================== */
+
+const chessBoard =
+    document.getElementById("chessBoard");
+
+const chessMessage =
+    document.getElementById("chessMessage");
+
+const checkmateOverlay =
+    document.getElementById("checkmateOverlay");
+
+const initialBoard = [
+
+    "♜","♞","♝","♛","♚","♝","♞","♜",
+
+    "♟","♟","♟","♟","♟","♟","♟","♟",
+
+    "","","","","","","","",
+
+    "","","","","","","","",
+
+    "","","","","","","","",
+
+    "","","","","","","","",
+
+    "♙","♙","♙","♙","♙","♙","♙","♙",
+
+    "♖","♘","♗","♕","♔","♗","♘","♖"
+
+];
+
+let boardState =
+    [...initialBoard];
+
+let selectedIndex =
+    null;
+
+let moveNumber =
+    0;
+
+let gameOver =
+    false;
+
+const gameMoves = [
+
+    {
+        from: "e2",
+        to: "e4",
+
+        response: {
+            from: "e7",
+            to: "e5"
+        },
+
+        label: "e4"
+    },
+
+    {
+        from: "d1",
+        to: "h5",
+
+        response: {
+            from: "b8",
+            to: "c6"
+        },
+
+        label: "Qh5"
+    },
+
+    {
+        from: "f1",
+        to: "c4",
+
+        response: {
+            from: "g8",
+            to: "f6"
+        },
+
+        label: "Bc4"
+    },
+
+    {
+        from: "h5",
+        to: "f7",
+
+        capture: true,
+
+        mate: true,
+
+        label: "Qxf7#"
+    }
+
+];
+
+function squareIndex(square) {
+
+    const file =
+        square.charCodeAt(0) - 97;
+
+    const rank =
+        Number(square[1]);
+
+    const row =
+        8 - rank;
+
+    return row * 8 + file;
+
+}
+
+function renderBoard() {
+
+    chessBoard.innerHTML = "";
+
+    boardState.forEach(
+        (piece, index) => {
+
+            const square =
+                document.createElement("div");
+
+            const row =
+                Math.floor(index / 8);
+
+            const col =
+                index % 8;
+
+            square.classList.add(
+                "square"
+            );
+
+            if (
+                (row + col) % 2 === 0
+            ) {
+
+                square.classList.add(
+                    "light"
+                );
+
+            }
+
+            else {
+
+                square.classList.add(
+                    "dark"
+                );
+
+            }
+
+            square.textContent =
+                piece;
+
+            if (
+                index ===
+                selectedIndex
+            ) {
+
+                square.classList.add(
+                    "selected"
+                );
+
+            }
+
+            if (
+                selectedIndex !== null &&
+                moveNumber <
+                gameMoves.length &&
+                index ===
+                squareIndex(
+                    gameMoves[
+                        moveNumber
+                    ].to
+                )
+            ) {
+
+                square.classList.add(
+                    "target"
+                );
+
+            }
+
+            square.addEventListener(
+                "click",
+                () =>
+                    handleSquareClick(index)
+            );
+
+            chessBoard.appendChild(
+                square
+            );
+
+        }
+    );
+
+}
+
+function handleSquareClick(index) {
+
+    if (gameOver)
+        return;
+
+    const currentMove =
+        gameMoves[moveNumber];
+
+    const expectedFrom =
+        squareIndex(
+            currentMove.from
+        );
+
+    const expectedTo =
+        squareIndex(
+            currentMove.to
+        );
+
+    if (
+        selectedIndex === null
+    ) {
+
+        if (
+            index === expectedFrom
+        ) {
+
+            selectedIndex =
+                index;
+
+            chessMessage.innerHTML =
+                "Piece selected. " +
+                "<strong>" +
+                "Show me what you've got." +
+                "</strong> ♥";
+
+            renderBoard();
+
+        }
+
+        else {
+
+            chessMessage.innerHTML =
+                "Choose the piece I’m waiting for. 😉";
+
+        }
+
+        return;
+
+    }
+
+    if (
+        index === selectedIndex
+    ) {
+
+        selectedIndex =
+            null;
+
+        chessMessage.innerHTML =
+            "Your move, engineer.";
+
+        renderBoard();
+
+        return;
+
+    }
+
+    if (
+        index !== expectedTo
+    ) {
+
+        chessMessage.innerHTML =
+            "Not quite... " +
+            "<strong>" +
+            "I think you know the move I'm waiting for. 😉" +
+            "</strong>";
+
+        return;
+
+    }
+
+    boardState[expectedTo] =
+        boardState[expectedFrom];
+
+    boardState[expectedFrom] =
+        "";
+
+    selectedIndex =
+        null;
+
+    renderBoard();
+
+    chessMessage.innerHTML =
+        `<strong>${currentMove.label}</strong> accepted.`;
+
+    if (
+        currentMove.mate
+    ) {
+
+        gameOver =
+            true;
+
+        chessMessage.innerHTML =
+            "<strong>King captured. System complete.</strong>";
+
+        setTimeout(
+            () => {
+
+                showCheckmate();
+
+            },
+            800
+        );
+
+        return;
+
+    }
+
+    moveNumber++;
+
+    chessMessage.innerHTML =
+        "Calculating opponent response...";
+
+    setTimeout(
+        () => {
+
+            makeBlackMove();
+
+        },
+        750
+    );
+
+}
+
+function makeBlackMove() {
+
+    const previousMove =
+        gameMoves[
+            moveNumber - 1
+        ];
+
+    if (
+        !previousMove.response
+    )
+        return;
+
+    const from =
+        squareIndex(
+            previousMove.response.from
+        );
+
+    const to =
+        squareIndex(
+            previousMove.response.to
+        );
+
+    boardState[to] =
+        boardState[from];
+
+    boardState[from] =
+        "";
+
+    renderBoard();
+
+    chessMessage.innerHTML =
+        "Opponent moved. " +
+        "<strong>Your turn.</strong>";
+
+    if (
+        moveNumber <
+        gameMoves.length
+    ) {
+
+        const nextMove =
+            gameMoves[moveNumber];
+
+        setTimeout(
+            () => {
+
+                chessMessage.innerHTML =
+                    `SYSTEM // awaiting <strong>${nextMove.from} → ${nextMove.to}</strong>`;
+
+            },
+            250
+        );
+
+    }
+
+}
+
+function showCheckmate() {
+
+    checkmateOverlay.classList.add(
+        "active"
+    );
+
+    createHeartParticles();
+
+}
+
+function createHeartParticles() {
+
+    const hearts = [
+
+        "♥",
+        "♡",
+        "💜",
+        "♥",
+        "♡",
+        "💜",
+        "♥",
+        "♡"
+
+    ];
+
+    hearts.forEach(
+        (heart, index) => {
+
+            const particle =
+                document.createElement("div");
+
+            particle.className =
+                "heart-particle";
+
+            particle.textContent =
+                heart;
+
+            particle.style.left =
+                `${15 + Math.random() * 70}%`;
+
+            particle.style.bottom =
+                `${15 + Math.random() * 30}%`;
+
+            particle.style.animationDelay =
+                `${index * 0.15}s`;
+
+            checkmateOverlay.appendChild(
+                particle
+            );
+
+        }
+    );
+
+}
+
+document
+    .getElementById(
+        "continueAfterMate"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const loveSection =
+                document.getElementById(
+                    "love"
+                );
+
+            if (loveSection) {
+
+                loveSection.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+            checkmateOverlay.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+renderBoard();
+
+
+/* =====================================================
+   VINTAGE MUSIC SYSTEM
+===================================================== */
+
+const musicTracks = [
+
+    {
+        title: "Birthday Song",
+        artist: "GUESS",
+        label: "RECORD 001",
+        description:
+            "A vintage birthday message hidden inside a song.",
+        quote:
+            "Some songs are not just songs. They become memories.",
+        url:
+            "https://soundcloud.com/joyce-valenzuela/make-me-beg-slowburn"
+    },
+
+    {
+        title: "Just The Two of Us",
+        artist: "Bill Withers",
+        label: "RECORD 002",
+        description:
+            "Because some people really do become the best part.",
+        quote:
+            "And somehow, you became one of my favorite parts.",
+        url:
+            "https://soundcloud.com/user-506825620/new75587339"
+    },
+
+    {
+        title: "Unbelievable",
+        artist: "Craig David",
+        label: "RECORD 003",
+        description:
+            "Somehow, of all the things I never thought would find me, it was you.",
+        quote:
+            "Maybe we don't need to know where we've been. Maybe it's enough that we found each other.",
+        url:
+            "https://soundcloud.com/hesham-helaly-1-1/craig-david-unbelievable"
+    },
+
+    {
+        title: "Meet Me in Amsterdam",
+        artist: "RINI",
+        label: "RECORD 004",
+        description:
+            "A little dreamy. A little intimate. Very you.",
+        quote:
+            "Somewhere between here and everywhere I'd still choose you.",
+        url:
+            "https://soundcloud.com/user-524582890/rini-oceane-ft-olivia-escuyos-slowed-and-reverb"
+    },
+
+    {
+        title: "Right Now",
+        artist: "Seyi Shay",
+        label: "RECORD 005",
+        description:
+            "This one feels like you and me… no noise, no distractions, just that little tension between us when I want you close. The kind of moment where words aren't really necessary; just stay right here with me. ❤️",
+        quote:
+            "Jaherana.",
+        url:
+            "https://soundcloud.com/warataaz/seyi-shay-right-now-sing-2015"
+    },
+
+    {
+        title: "Kiss From A Rose",
+        artist: "Seal",
+        label: "THE LAST RECORD",
+        description:
+            "The one I saved for last.There are things I could never quite put into words… perhaps this song can say them for me. 🌹",
+        quote:
+            "And if I had to choose again, I'd still fall for you.",
+        url:
+            "https://soundcloud.com/ne-heartbreak/seal-a-kiss-from-a-rose"
+    }
+
+];
+
+let currentSong = 0;
+let musicPlaying = false;
+let soundcloudWidget = null;
+
+const songTitle =
+    document.getElementById("songTitle");
+
+const songArtist =
+    document.getElementById("songArtist");
+
+const songDescription =
+    document.getElementById("songDescription");
+
+const songQuote =
+    document.getElementById("songQuote");
+
+const recordNumber =
+    document.getElementById("recordNumber");
+
+const vinylLabelText =
+    document.getElementById("vinylLabelText");
+
+const recordInfo =
+    document.getElementById("recordInfo");
+
+const vintagePlayer =
+    document.getElementById("vintagePlayer");
+
+const vinyl =
+    document.getElementById("vinyl");
+
+const playSong =
+    document.getElementById("playSong");
+
+const nextSong =
+    document.getElementById("nextSong");
+
+const previousSong =
+    document.getElementById("previousSong");
+
+const nextRecordButton =
+    document.getElementById("nextRecordButton");
+
+const nextTeaser =
+    document.getElementById("nextTeaser");
+
+const soundcloudPlayer =
+    document.getElementById("soundcloudPlayer");
+
+const soundcloudScript =
+    document.createElement("script");
+
+soundcloudScript.src =
+    "https://w.soundcloud.com/player/api.js";
+
+soundcloudScript.onload =
+    function () {
+        initializeSoundCloud();
+    };
+
+document.head.appendChild(
+    soundcloudScript
+);
+
+function initializeSoundCloud() {
+
+    soundcloudWidget =
+        SC.Widget(
+            soundcloudPlayer
+        );
+
+    soundcloudWidget.bind(
+        SC.Widget.Events.READY,
+        function () {
+
+            console.log(
+                "D_SYSTEM AUDIO // SOUNDCLOUD READY"
+            );
+
+            soundcloudWidget.bind(
+                SC.Widget.Events.PLAY,
+                function () {
+
+                    musicPlaying = true;
+
+                    playSong.textContent =
+                        "❚❚";
+
+                    vinyl.classList.add(
+                        "playing"
+                    );
+
+                    vintagePlayer.classList.add(
+                        "playing"
+                    );
+
+                }
+            );
+
+            soundcloudWidget.bind(
+                SC.Widget.Events.PAUSE,
+                function () {
+
+                    musicPlaying = false;
+
+                    playSong.textContent =
+                        "▶";
+
+                    vinyl.classList.remove(
+                        "playing"
+                    );
+
+                    vintagePlayer.classList.remove(
+                        "playing"
+                    );
+
+                }
+            );
+
+            soundcloudWidget.bind(
+                SC.Widget.Events.FINISH,
+                function () {
+
+                    musicPlaying = false;
+
+                    playSong.textContent =
+                        "▶";
+
+                    vinyl.classList.remove(
+                        "playing"
+                    );
+
+                    vintagePlayer.classList.remove(
+                        "playing"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+function updateMusicDisplay() {
+
+    const song =
+        musicTracks[currentSong];
+
+    recordInfo.classList.remove(
+        "changing"
+    );
+
+    void recordInfo.offsetWidth;
+
+    recordInfo.classList.add(
+        "changing"
+    );
+
+    songTitle.textContent =
+        song.title;
+
+    songArtist.textContent =
+        song.artist;
+
+    songDescription.textContent =
+        song.description;
+
+    songQuote.textContent =
+        `"${song.quote}"`;
+
+    recordNumber.textContent =
+        `RECORD ${String(currentSong + 1).padStart(3,"0")} / 006`;
+
+    vinylLabelText.textContent =
+        song.label;
+
+    if (
+        currentSong ===
+        musicTracks.length - 1
+    ) {
+
+        vintagePlayer.classList.add(
+            "final-record"
+        );
+
+        nextTeaser.textContent =
+            "THIS IS THE LAST RECORD";
+
+        nextRecordButton.textContent =
+            "REPLAY THE STORY ↻";
+
+    }
+
+    else {
+
+        vintagePlayer.classList.remove(
+            "final-record"
+        );
+
+        nextTeaser.textContent =
+            "NEXT RECORD: CLASSIFIED";
+
+        nextRecordButton.textContent =
+            "NEXT RECORD →";
+
+    }
+
+}
+
+function loadSong(
+    index,
+    autoPlay = false
+) {
+
+    currentSong = index;
+
+    updateMusicDisplay();
+
+    if (
+        !soundcloudWidget
+    ) {
+
+        console.log(
+            "D_SYSTEM AUDIO // WIDGET NOT READY"
+        );
+
+        return;
+
+    }
+
+    const song =
+        musicTracks[currentSong];
+
+    soundcloudWidget.load(
+        song.url,
+        {
+            auto_play: autoPlay,
+            show_artwork: false,
+            show_comments: false,
+            show_user: false,
+            show_reposts: false,
+            visual: false,
+            color: "#a855f7"
+        }
+    );
+
+    musicPlaying = autoPlay;
+
+    playSong.textContent =
+        autoPlay
+            ? "❚❚"
+            : "▶";
+
+    if (!autoPlay) {
+
+        vinyl.classList.remove(
+            "playing"
+        );
+
+    }
+
+}
+
+playSong.addEventListener(
+    "click",
+    function () {
+
+        if (
+            !soundcloudWidget
+        ) {
+
+            alert(
+                "🎵 AUDIO SYSTEM IS STILL LOADING...\n\nPlease wait a moment and press PLAY again."
+            );
+
+            return;
+
+        }
+
+        if (
+            musicPlaying
+        ) {
+
+            soundcloudWidget.pause();
+
+        }
+
+        else {
+
+            soundcloudWidget.play();
+
+        }
+
+    }
+);
+
+function goToNextRecord() {
+
+    if (
+        currentSong >=
+        musicTracks.length - 1
+    ) {
+
+        currentSong = 0;
+
+    }
+
+    else {
+
+        currentSong++;
+
+    }
+
+    loadSong(
+        currentSong,
+        true
+    );
+
+}
+
+nextRecordButton.addEventListener(
+    "click",
+    goToNextRecord
+);
+
+nextSong.addEventListener(
+    "click",
+    goToNextRecord
+);
+
+function goToPreviousRecord() {
+
+    if (
+        currentSong <= 0
+    ) {
+
+        currentSong =
+            musicTracks.length - 1;
+
+    }
+
+    else {
+
+        currentSong--;
+
+    }
+
+    loadSong(
+        currentSong,
+        true
+    );
+
+}
+
+previousSong.addEventListener(
+    "click",
+    goToPreviousRecord
+);
+
+updateMusicDisplay();
+
+playSong.textContent =
+    "▶";
+
+
+/* =====================================================
+   CHEESE EASTER EGG
+===================================================== */
+
+let cheeseClicks = 0;
+
+document
+    .getElementById("cheese")
+    .addEventListener(
+        "click",
+        () => {
+
+            cheeseClicks++;
+
+            if (
+                cheeseClicks === 1
+            ) {
+
+                alert(
+                    "🧀 CHEESE PROTOCOL ACTIVATED"
+                );
+
+            }
+
+            if (
+                cheeseClicks === 3
+            ) {
+
+                alert(
+                    "Okay... we get it. You REALLY love cheese. 😂"
+                );
+
+            }
+
+            if (
+                cheeseClicks === 5
+            ) {
+
+                document
+                    .getElementById(
+                        "secretMessage"
+                    )
+                    .style.display =
+                    "flex";
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   SECRET KEYBOARD EASTER EGG
+===================================================== */
+
+let secretCode = "";
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        secretCode +=
+            event.key.toLowerCase();
+
+        if (
+            secretCode.length >
+            10
+        ) {
+
+            secretCode =
+                secretCode.slice(-10);
+
+        }
+
+        if (
+            secretCode.includes(
+                "love"
+            )
+        ) {
+
+            document
+                .getElementById(
+                    "secretMessage"
+                )
+                .style.display =
+                "flex";
+
+            secretCode = "";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   FLOATING PARTICLES
+===================================================== */
+
+for (
+    let i = 0;
+    i < 35;
+    i++
+) {
+
+    const particle =
+        document.createElement("div");
+
+    particle.className =
+        "particle";
+
+    particle.style.left =
+        Math.random() * 100 + "%";
+
+    particle.style.animationDelay =
+        Math.random() * 10 + "s";
+
+    particle.style.animationDuration =
+        (
+            6 +
+            Math.random() * 10
+        ) + "s";
+
+    document.body.appendChild(
+        particle
+    );
+
+}
+
+
+/* =====================================================
+   DEVELOPER CONSOLE
+===================================================== */
+
+console.log(`
+
+╔════════════════════════════════════════╗
+║                                        ║
+║          D_SYSTEM // v∞                ║
+║                                        ║
+║  Hey engineer.                         ║
+║                                        ║
+║  You found the developer console.      ║
+║                                        ║
+║  There is nothing to debug here.       ║
+║                                        ║
+║  Except one thing...                   ║
+║                                        ║
+║  My heart is completely occupied. ♥    ║
+║                                        ║
+╚════════════════════════════════════════╝
+
+`);
+
+</script>
+
+</body>
+
+</html>
